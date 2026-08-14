@@ -3,7 +3,7 @@ title: 黑白与线条
 slug: black-and-white
 description: 关于这个博客的一点设计想法。
 date: 2026-08-14
-sticky: true
+sticky: false
 category: 设计
 tags:
   - 设计
