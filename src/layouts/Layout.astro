@@ -123,6 +123,10 @@ const searchIndex = posts.map((p) => ({
     </main>
     <footer class="site-footer">
       <span>© {new Date().getFullYear()} {SITE_TITLE}</span>
+      <span class="footer-sep">·</span>
+      <span class="footer-stat">今日 <b id="statToday">-</b></span>
+      <span class="footer-stat">本月 <b id="statMonth">-</b></span>
+      <span class="footer-stat">总访问 <b id="statTotal">-</b></span>
     </footer>
 
     <audio id="musicAudio" src={site.music.audio} preload="metadata" transition:persist></audio>
@@ -256,6 +260,60 @@ const searchIndex = posts.map((p) => ({
 
       document.addEventListener('astro:page-load', initMusic);
       initMusic();
+
+      // 访问量统计（Supabase）
+      const SUPABASE_URL = 'https://eohtftdqtxbkryaktqrt.supabase.co';
+      const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvaHRmdGRxdHhia3J5YWt0cXJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTAwNDMsImV4cCI6MjEwMjI4NjA0M30.ZhyQEbRrpVBkyH80Ws2mxuny4s1Ew7RxHDJ1IJ4HNXI';
+
+      async function recordVisit() {
+        const date = new Date().toISOString().slice(0, 10);
+        try {
+          await fetch(`${SUPABASE_URL}/rest/v1/visits`, {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${SUPABASE_KEY}`,
+              'Content-Type': 'application/json',
+              Prefer: 'return=minimal'
+            },
+            body: JSON.stringify({ date })
+          });
+        } catch (e) {}
+      }
+
+      async function visitCount(query) {
+        try {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/visits?select=id${query}`, {
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${SUPABASE_KEY}`,
+              Prefer: 'count=exact',
+              Range: '0-0'
+            }
+          });
+          const range = res.headers.get('content-range');
+          return range ? parseInt(range.split('/')[1]) : 0;
+        } catch (e) {
+          return 0;
+        }
+      }
+
+      async function loadStats() {
+        const today = new Date().toISOString().slice(0, 10);
+        const monthStart = today.slice(0, 7) + '-01';
+        const [total, todayN, monthN] = await Promise.all([
+          visitCount(''),
+          visitCount(`&date=eq.${today}`),
+          visitCount(`&date=gte.${monthStart}&date=lte.${today}`)
+        ]);
+        const setEl = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+        setEl('statToday', todayN);
+        setEl('statMonth', monthN);
+        setEl('statTotal', total);
+      }
+
+      recordVisit();
+      loadStats();
     </script>
   </body>
 </html>
