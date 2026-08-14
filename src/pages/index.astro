@@ -53,8 +53,16 @@ const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
                   <h2 class="post-title">{post.data.title}</h2>
                   {post.data.description && <p class="post-desc">{post.data.description}</p>}
                   <div class="post-card-meta">
-                    <time datetime={post.data.date.toISOString()}>{formatDateTime(post.data.date)}</time>
-                    {post.data.category && <span>{post.data.category}</span>}
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                      <time datetime={post.data.date.toISOString()}>{formatDateTime(post.data.date)}</time>
+                    </span>
+                    {post.data.category && (
+                      <span class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                        <span>{post.data.category}</span>
+                      </span>
+                    )}
                   </div>
                   {
                     post.data.tags.length > 0 && (
