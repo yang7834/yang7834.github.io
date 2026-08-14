@@ -2,8 +2,8 @@
 title: 你好，世界
 slug: hello-world
 description: 博客开张的第一篇文章。
-date: 2026-08-14
-sticky: false
+date: 2026-08-14 21:46
+sticky: true
 category: 随笔
 tags:
   - 随笔
