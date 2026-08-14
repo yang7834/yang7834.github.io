@@ -1,10 +1,13 @@
 ---
-title: "你好，世界"
-description: "博客开张的第一篇文章。"
-date: "2026-08-14"
-category: "随笔"
-tags: ["随笔"]
-sticky: true
+title: 你好，世界
+slug: hello-world
+description: 博客开张的第一篇文章。
+date: 2026-08-14
+sticky: false
+category: 随笔
+tags:
+  - 随笔
+cover: ''
 ---
 
 这是这个博客的第一篇文章。
