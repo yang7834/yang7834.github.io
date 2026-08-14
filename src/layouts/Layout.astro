@@ -84,7 +84,7 @@ const searchIndex = posts.map((p) => ({
     <ClientRouter />
   </head>
   <body>
-    <div class="bg-layer"></div>
+    <div class="bg-layer" style={`background-image: url('${site.background}')`}></div>
     <header class="site-header">
       <a class="site-title" href="/">{SITE_TITLE}</a>
       <nav class="site-nav">
@@ -170,15 +170,8 @@ const searchIndex = posts.map((p) => ({
         });
       }
 
-      // 音乐播放器
-      const musicToggle = document.getElementById('musicToggle');
+      // 音乐播放器（全局 audio + 每次导航后重新绑定 UI）
       const musicAudio = document.getElementById('musicAudio');
-      const musicDisc = document.getElementById('musicDisc');
-      const musicVolume = document.getElementById('musicVolume');
-      const musicProgressBar = document.getElementById('musicProgressBar');
-      const musicProgressFill = document.getElementById('musicProgressFill');
-      const musicCurrent = document.getElementById('musicCurrent');
-      const musicDuration = document.getElementById('musicDuration');
 
       function fmtMusic(s) {
         if (!isFinite(s)) return '0:00';
@@ -187,51 +180,65 @@ const searchIndex = posts.map((p) => ({
         return `${m}:${String(sec).padStart(2, '0')}`;
       }
 
-      if (musicAudio) {
+      function syncMusicUI() {
+        if (!musicAudio) return;
+        const toggle = document.getElementById('musicToggle');
+        const disc = document.getElementById('musicDisc');
+        const current = document.getElementById('musicCurrent');
+        const duration = document.getElementById('musicDuration');
+        const fill = document.getElementById('musicProgressFill');
+        if (toggle) toggle.textContent = musicAudio.paused ? '▶' : '⏸';
+        if (disc) {
+          if (musicAudio.paused) disc.classList.remove('playing');
+          else disc.classList.add('playing');
+        }
+        if (current) current.textContent = fmtMusic(musicAudio.currentTime);
+        if (duration) duration.textContent = fmtMusic(musicAudio.duration);
+        if (fill && musicAudio.duration) {
+          fill.style.width = (musicAudio.currentTime / musicAudio.duration) * 100 + '%';
+        }
+      }
+
+      function initMusic() {
+        if (!musicAudio) return;
         musicAudio.volume = 0.8;
-        musicAudio.addEventListener('loadedmetadata', () => {
-          if (musicDuration) musicDuration.textContent = fmtMusic(musicAudio.duration);
-        });
-        musicAudio.addEventListener('timeupdate', () => {
-          if (musicCurrent) musicCurrent.textContent = fmtMusic(musicAudio.currentTime);
-          if (musicProgressFill && musicAudio.duration) {
-            musicProgressFill.style.width = (musicAudio.currentTime / musicAudio.duration) * 100 + '%';
-          }
-        });
-        musicAudio.addEventListener('ended', () => {
-          if (musicToggle) musicToggle.textContent = '▶';
-          if (musicDisc) musicDisc.classList.remove('playing');
-        });
+        const toggle = document.getElementById('musicToggle');
+        const volumeEl = document.getElementById('musicVolume');
+        const progressBar = document.getElementById('musicProgressBar');
+        if (volumeEl) volumeEl.value = musicAudio.volume;
+        if (toggle) {
+          toggle.onclick = () => {
+            if (musicAudio.paused) {
+              musicAudio.play().then(syncMusicUI).catch(() => {});
+            } else {
+              musicAudio.pause();
+              syncMusicUI();
+            }
+          };
+        }
+        if (volumeEl) {
+          volumeEl.oninput = () => {
+            musicAudio.volume = parseFloat(volumeEl.value);
+          };
+        }
+        if (progressBar) {
+          progressBar.onclick = (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const ratio = (e.clientX - rect.left) / rect.width;
+            if (musicAudio.duration) musicAudio.currentTime = ratio * musicAudio.duration;
+          };
+        }
+        syncMusicUI();
       }
 
-      if (musicToggle && musicAudio) {
-        musicToggle.addEventListener('click', () => {
-          if (musicAudio.paused) {
-            musicAudio.play().then(() => {
-              musicToggle.textContent = '⏸';
-              if (musicDisc) musicDisc.classList.add('playing');
-            }).catch(() => {});
-          } else {
-            musicAudio.pause();
-            musicToggle.textContent = '▶';
-            if (musicDisc) musicDisc.classList.remove('playing');
-          }
-        });
+      if (musicAudio) {
+        musicAudio.addEventListener('loadedmetadata', syncMusicUI);
+        musicAudio.addEventListener('timeupdate', syncMusicUI);
+        musicAudio.addEventListener('ended', syncMusicUI);
       }
 
-      if (musicVolume && musicAudio) {
-        musicVolume.addEventListener('input', () => {
-          musicAudio.volume = parseFloat(musicVolume.value);
-        });
-      }
-
-      if (musicProgressBar && musicAudio) {
-        musicProgressBar.addEventListener('click', (e) => {
-          const rect = musicProgressBar.getBoundingClientRect();
-          const ratio = (e.clientX - rect.left) / rect.width;
-          if (musicAudio.duration) musicAudio.currentTime = ratio * musicAudio.duration;
-        });
-      }
+      document.addEventListener('astro:page-load', initMusic);
+      initMusic();
     </script>
   </body>
 </html>

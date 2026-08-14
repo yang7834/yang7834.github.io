@@ -51,7 +51,8 @@ collections:
           - { label: "博客名", name: title, widget: string }
           - { label: "副标题", name: subtitle, widget: string }
           - { label: "个人简介", name: bio, widget: string }
-          - { label: "头像", name: avatar, widget: string }
+          - { label: "头像", name: avatar, widget: image }
+          - { label: "背景图", name: background, widget: image }
           - { label: "建站日期", name: created, widget: string }
           - { label: "公告", name: notice, widget: text }
           - label: "社交链接"
