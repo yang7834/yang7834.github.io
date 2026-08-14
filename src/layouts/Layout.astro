@@ -170,8 +170,9 @@ const searchIndex = posts.map((p) => ({
         });
       }
 
-      // 音乐播放器（全局 audio + 每次导航后重新绑定 UI）
+      // 音乐播放器（全局 audio + 每次导航后重新绑定 UI + 导航后自动恢复播放）
       const musicAudio = document.getElementById('musicAudio');
+      let musicWasPlaying = false;
 
       function fmtMusic(s) {
         if (!isFinite(s)) return '0:00';
@@ -209,9 +210,13 @@ const searchIndex = posts.map((p) => ({
         if (toggle) {
           toggle.onclick = () => {
             if (musicAudio.paused) {
-              musicAudio.play().then(syncMusicUI).catch(() => {});
+              musicAudio.play().then(() => {
+                musicWasPlaying = true;
+                syncMusicUI();
+              }).catch(() => {});
             } else {
               musicAudio.pause();
+              musicWasPlaying = false;
               syncMusicUI();
             }
           };
@@ -234,10 +239,18 @@ const searchIndex = posts.map((p) => ({
       if (musicAudio) {
         musicAudio.addEventListener('loadedmetadata', syncMusicUI);
         musicAudio.addEventListener('timeupdate', syncMusicUI);
-        musicAudio.addEventListener('ended', syncMusicUI);
+        musicAudio.addEventListener('ended', () => {
+          musicWasPlaying = false;
+          syncMusicUI();
+        });
       }
 
-      document.addEventListener('astro:page-load', initMusic);
+      document.addEventListener('astro:page-load', () => {
+        initMusic();
+        if (musicWasPlaying && musicAudio && musicAudio.paused) {
+          musicAudio.play().then(syncMusicUI).catch(() => {});
+        }
+      });
       initMusic();
     </script>
   </body>
