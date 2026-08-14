@@ -1,0 +1,12 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+
+<article class="page glass">
+  <h1>{title}</h1>
+  <p>{description || '这个页面还在建设中，敬请期待。'}</p>
+</article>

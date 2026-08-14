@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  }
+}
+const tags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<Layout title="标签">
+  <article class="page glass">
+    <h1>标签</h1>
+    <div class="tag-cloud">
+      {
+        tags.map(([tag, count]) => (
+          <a class="tag-cloud-item" href={`/tag/${encodeURIComponent(tag)}/`}>
+            {tag}<span class="tag-count">{count}</span>
+          </a>
+        ))
+      }
+    </div>
+  </article>
+</Layout>

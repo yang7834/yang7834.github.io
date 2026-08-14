@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const tagSet = new Set<string>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) tagSet.add(tag);
+  }
+  return [...tagSet].map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const posts = (await getCollection('blog'))
+  .filter((p) => p.data.tags.includes(tag))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title={`标签：${tag}`}>
+  <div class="home-layout">
+    <Sidebar />
+    <div class="content">
+      <section class="intro glass">
+        <h1>标签：{tag}</h1>
+        <p>共 {posts.length} 篇文章。</p>
+      </section>
+      <div class="post-cards">
+        {
+          posts.map((post) => (
+            <article class="post-card glass">
+              <a class="post-card-link" href={`/blog/${post.id}/`}>
+                <div class="post-card-body">
+                  <h2 class="post-title">{post.data.title}</h2>
+                  {post.data.description && <p class="post-desc">{post.data.description}</p>}
+                  <div class="post-card-meta">
+                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  </div>
+                </div>
+                {
+                  post.data.cover && (
+                    <div class="post-card-cover">
+                      <img src={post.data.cover} alt={post.data.title} loading="lazy" />
+                    </div>
+                  )
+                }
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Layout>
