@@ -1,38 +1,35 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../lib/format';
+import { formatDate } from '../../lib/format';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
-
-const categoryCounts = new Map<string, number>();
-for (const post of posts) {
-  if (post.data.category) {
-    const cat = post.data.category;
-    categoryCounts.set(cat, (categoryCounts.get(cat) || 0) + 1);
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const cats = new Set<string>();
+  for (const post of posts) {
+    if (post.data.category) cats.add(post.data.category);
   }
+  return [...cats].map((cat) => ({
+    params: { category: cat },
+    props: { category: cat },
+  }));
 }
-const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
+
+const { category } = Astro.props;
+const posts = (await getCollection('blog'))
+  .filter((p) => p.data.category === category)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout>
+<Layout title={`分类：${category}`}>
   <section class="intro">
-    <h1>随笔与记录</h1>
-    <p>一些零散的想法、笔记和生活。</p>
+    <h1>分类：{category}</h1>
+    <p>共 {posts.length} 篇文章。</p>
   </section>
 
   <nav class="filter-nav">
-    <a class="filter-item active" href="/">全部</a>
+    <a class="filter-item" href="/">全部</a>
     <a class="filter-item" href="/archive/">归档</a>
-    {
-      categories.map(([cat, count]) => (
-        <a class="filter-item" href={`/category/${encodeURIComponent(cat)}/`}>
-          {cat}<span class="filter-count">{count}</span>
-        </a>
-      ))
-    }
   </nav>
 
   <div class="post-cards">
@@ -45,7 +42,6 @@ const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
               {post.data.description && <p class="post-desc">{post.data.description}</p>}
               <div class="post-card-meta">
                 <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-                {post.data.category && <span>{post.data.category}</span>}
               </div>
             </div>
             {

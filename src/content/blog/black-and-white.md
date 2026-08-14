@@ -2,6 +2,7 @@
 title: "黑白与线条"
 description: "关于这个博客的一点设计想法。"
 date: "2026-08-14"
+category: "设计"
 tags: ["设计"]
 ---
 

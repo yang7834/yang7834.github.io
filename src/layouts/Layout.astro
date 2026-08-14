@@ -27,6 +27,7 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · ${SITE
       <a class="site-title" href="/">{SITE_TITLE}</a>
       <nav class="site-nav">
         <a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>首页</a>
+        <a href="/archive/" aria-current={Astro.url.pathname === '/archive/' ? 'page' : undefined}>归档</a>
         <a href="/about/" aria-current={Astro.url.pathname === '/about/' ? 'page' : undefined}>关于</a>
       </nav>
     </header>

@@ -117,25 +117,89 @@ a {
   max-width: 36em;
 }
 
-/* ---------- post list ---------- */
+/* ---------- filter nav ---------- */
 
-.post-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.post-item {
+.filter-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 28px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--line);
 }
 
-.post-item:first-child {
+.filter-item {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 4px 12px;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.filter-item:hover {
+  color: var(--fg);
+  border-color: var(--line-strong);
+}
+
+.filter-item.active {
+  color: #fff;
+  background: var(--line-strong);
+  border-color: var(--line-strong);
+}
+
+.filter-count {
+  opacity: 0.6;
+  margin-left: 4px;
+}
+
+/* ---------- post cards ---------- */
+
+.post-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card {
+  border-bottom: 1px solid var(--line);
+}
+
+.post-card:first-child {
   border-top: 1px solid var(--line);
 }
 
-.post-link {
-  display: block;
+.post-card-link {
+  display: flex;
+  gap: 24px;
   padding: 28px 0;
+  align-items: center;
+}
+
+.post-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-card-cover {
+  flex: 0 0 140px;
+}
+
+.post-card-cover img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.post-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 6px;
 }
 
 .post-date {
@@ -154,7 +218,7 @@ a {
   transition: text-decoration-color 0.15s ease;
 }
 
-.post-item:hover .post-title {
+.post-card:hover .post-title {
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
@@ -164,6 +228,46 @@ a {
   margin: 0;
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+/* ---------- archive ---------- */
+
+.archive-year-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.archive-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.archive-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.archive-item a {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  align-items: baseline;
+}
+
+.archive-item time {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+
+.archive-item:hover .archive-title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
 }
 
 /* ---------- article ---------- */
@@ -316,5 +420,21 @@ a {
 
   .post-header .post-title {
     font-size: 1.6rem;
+  }
+
+  .post-card-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .post-card-cover {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .post-card-cover img {
+    width: 100%;
+    height: auto;
   }
 }

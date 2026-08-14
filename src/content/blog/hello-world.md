@@ -2,6 +2,7 @@
 title: "你好，世界"
 description: "博客开张的第一篇文章。"
 date: "2026-08-14"
+category: "随笔"
 tags: ["随笔"]
 ---
 
