@@ -186,6 +186,14 @@ a {
   margin-top: 12px;
 }
 
+.post-cover {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 0 40px;
+  border: 1px solid var(--line);
+}
+
 .post-body {
   max-width: 680px;
 }

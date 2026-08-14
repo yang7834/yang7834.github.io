@@ -33,6 +33,9 @@ const { Content } = await render(post);
         )
       }
     </header>
+    {post.data.cover && (
+      <img class="post-cover" src={post.data.cover} alt={post.data.title} />
+    )}
     <div class="post-body">
       <Content />
     </div>
