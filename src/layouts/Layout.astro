@@ -125,7 +125,10 @@ const searchIndex = posts.map((p) => ({
       <span>© {new Date().getFullYear()} {SITE_TITLE}</span>
     </footer>
 
+    <audio id="musicAudio" src={site.music.audio} preload="metadata" transition:persist></audio>
+
     <script define:vars={{ searchIndex }}>
+      // 搜索
       const input = document.getElementById('searchInput');
       const results = document.getElementById('searchResults');
 
@@ -164,6 +167,69 @@ const searchIndex = posts.map((p) => ({
           if (!e.target.closest('.site-search')) {
             results.classList.remove('open');
           }
+        });
+      }
+
+      // 音乐播放器
+      const musicToggle = document.getElementById('musicToggle');
+      const musicAudio = document.getElementById('musicAudio');
+      const musicDisc = document.getElementById('musicDisc');
+      const musicVolume = document.getElementById('musicVolume');
+      const musicProgressBar = document.getElementById('musicProgressBar');
+      const musicProgressFill = document.getElementById('musicProgressFill');
+      const musicCurrent = document.getElementById('musicCurrent');
+      const musicDuration = document.getElementById('musicDuration');
+
+      function fmtMusic(s) {
+        if (!isFinite(s)) return '0:00';
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return `${m}:${String(sec).padStart(2, '0')}`;
+      }
+
+      if (musicAudio) {
+        musicAudio.volume = 0.8;
+        musicAudio.addEventListener('loadedmetadata', () => {
+          if (musicDuration) musicDuration.textContent = fmtMusic(musicAudio.duration);
+        });
+        musicAudio.addEventListener('timeupdate', () => {
+          if (musicCurrent) musicCurrent.textContent = fmtMusic(musicAudio.currentTime);
+          if (musicProgressFill && musicAudio.duration) {
+            musicProgressFill.style.width = (musicAudio.currentTime / musicAudio.duration) * 100 + '%';
+          }
+        });
+        musicAudio.addEventListener('ended', () => {
+          if (musicToggle) musicToggle.textContent = '▶';
+          if (musicDisc) musicDisc.classList.remove('playing');
+        });
+      }
+
+      if (musicToggle && musicAudio) {
+        musicToggle.addEventListener('click', () => {
+          if (musicAudio.paused) {
+            musicAudio.play().then(() => {
+              musicToggle.textContent = '⏸';
+              if (musicDisc) musicDisc.classList.add('playing');
+            }).catch(() => {});
+          } else {
+            musicAudio.pause();
+            musicToggle.textContent = '▶';
+            if (musicDisc) musicDisc.classList.remove('playing');
+          }
+        });
+      }
+
+      if (musicVolume && musicAudio) {
+        musicVolume.addEventListener('input', () => {
+          musicAudio.volume = parseFloat(musicVolume.value);
+        });
+      }
+
+      if (musicProgressBar && musicAudio) {
+        musicProgressBar.addEventListener('click', (e) => {
+          const rect = musicProgressBar.getBoundingClientRect();
+          const ratio = (e.clientX - rect.left) / rect.width;
+          if (musicAudio.duration) musicAudio.currentTime = ratio * musicAudio.duration;
         });
       }
     </script>
