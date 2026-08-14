@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
-import { formatDate } from '../../lib/format';
+import { formatDateTime } from '../../lib/format';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -19,7 +19,7 @@ const { Content } = await render(post);
   <article class="post glass">
     <header class="post-header">
       <time class="post-date" datetime={post.data.date.toISOString()}>
-        {formatDate(post.data.date)}
+        {formatDateTime(post.data.date)}
       </time>
       <h1 class="post-title">{post.data.title}</h1>
       {post.data.description && <p class="post-desc">{post.data.description}</p>}
@@ -27,7 +27,7 @@ const { Content } = await render(post);
         post.data.tags.length > 0 && (
           <span class="tag-list">
             {post.data.tags.map((tag) => (
-              <span class="tag">{tag}</span>
+              <span class="tag">#{tag}</span>
             ))}
           </span>
         )

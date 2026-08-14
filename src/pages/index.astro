@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import LeftSidebar from '../components/LeftSidebar.astro';
 import RightSidebar from '../components/RightSidebar.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../lib/format';
+import { formatDateTime } from '../lib/format';
 
 const posts = (await getCollection('blog')).sort((a, b) => {
   if (a.data.sticky && !b.data.sticky) return -1;
@@ -49,13 +49,22 @@ const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
             <article class="post-card glass">
               <a class="post-card-link" href={`/blog/${post.id}/`}>
                 <div class="post-card-body">
+                  {post.data.sticky && <span class="sticky-badge">置顶</span>}
                   <h2 class="post-title">{post.data.title}</h2>
                   {post.data.description && <p class="post-desc">{post.data.description}</p>}
                   <div class="post-card-meta">
-                    {post.data.sticky && <span class="sticky-badge">置顶</span>}
-                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                    <time datetime={post.data.date.toISOString()}>{formatDateTime(post.data.date)}</time>
                     {post.data.category && <span>{post.data.category}</span>}
                   </div>
+                  {
+                    post.data.tags.length > 0 && (
+                      <div class="post-card-tags">
+                        {post.data.tags.map((tag) => (
+                          <span class="tag">#{tag}</span>
+                        ))}
+                      </div>
+                    )
+                  }
                 </div>
                 {
                   post.data.cover && (

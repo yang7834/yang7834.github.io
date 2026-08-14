@@ -1,11 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../lib/format';
+import { formatDateTime } from '../lib/format';
 
-const moments = (await getCollection('moments')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
+const moments = (await getCollection('moments')).sort((a, b) => {
+  if (a.data.sticky && !b.data.sticky) return -1;
+  if (!a.data.sticky && b.data.sticky) return 1;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
 ---
 
 <Layout title="动态">
@@ -15,8 +17,9 @@ const moments = (await getCollection('moments')).sort(
       {
         moments.map((m) => (
           <div class="moment-item">
+            {m.data.sticky && <span class="sticky-badge">置顶</span>}
             <div class="moment-text">{m.body}</div>
-            <span class="moment-date">{formatDate(m.data.date)}</span>
+            <span class="moment-date">{formatDateTime(m.data.date)}</span>
           </div>
         ))
       }

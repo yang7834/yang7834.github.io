@@ -17,7 +17,7 @@ collections:
       - { label: "标题", name: title, widget: string }
       - { label: "网址标识", name: slug, widget: string, hint: "文章网址最后一段，只能用小写英文、数字和短横线，例如 hello-world", pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "只能用小写英文、数字和短横线（-）"] }
       - { label: "简介", name: description, widget: string }
-      - { label: "日期", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "发布时间", name: date, widget: datetime, format: "YYYY-MM-DD HH:mm", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
       - { label: "置顶", name: sticky, widget: boolean, default: false, required: false, hint: "勾选后这篇文章会排在首页最前面" }
       - { label: "分类", name: category, widget: string, required: false, hint: "例如：技术 / 随笔 / 生活，留空则归入未分类" }
       - { label: "标签", name: tags, widget: list, default: [], required: false }
@@ -29,7 +29,8 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "日期", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "发布时间", name: date, widget: datetime, format: "YYYY-MM-DD HH:mm", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
+      - { label: "置顶", name: sticky, widget: boolean, default: false, required: false }
       - { label: "内容", name: body, widget: text }
   - name: links
     label: "友链"

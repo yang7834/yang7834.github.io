@@ -19,6 +19,7 @@ const moments = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/moments' }),
   schema: z.object({
     date: z.coerce.date(),
+    sticky: z.boolean().default(false),
   }),
 });
 

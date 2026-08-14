@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import LeftSidebar from '../components/LeftSidebar.astro';
 import RightSidebar from '../components/RightSidebar.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../lib/format';
+import { formatDateTime } from '../lib/format';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
@@ -32,7 +32,7 @@ for (const post of posts) {
                   yearPosts.map((post) => (
                     <li class="archive-item">
                       <a href={`/blog/${post.id}/`}>
-                        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                        <time datetime={post.data.date.toISOString()}>{formatDateTime(post.data.date)}</time>
                         <span class="archive-title">{post.data.title}</span>
                       </a>
                     </li>
