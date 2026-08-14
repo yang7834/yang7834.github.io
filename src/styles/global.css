@@ -1043,6 +1043,54 @@ a {
   color: var(--muted);
 }
 
+.donate-list-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  margin: 40px 0 16px;
+}
+
+.donate-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.donate-list-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.donate-list-item:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.donate-list-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.donate-name {
+  font-weight: 600;
+}
+
+.donate-amount {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.donate-message {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.donate-date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
 /* ---------- 归档 ---------- */
 
 .archive-year-title {

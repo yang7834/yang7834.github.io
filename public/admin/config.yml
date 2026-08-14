@@ -41,6 +41,16 @@ collections:
       - { label: "名称", name: name, widget: string }
       - { label: "链接", name: url, widget: string }
       - { label: "描述", name: description, widget: string, required: false }
+  - name: donations
+    label: "打赏列表"
+    folder: "src/content/donations"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "昵称", name: name, widget: string }
+      - { label: "金额", name: amount, widget: string }
+      - { label: "留言", name: message, widget: string, required: false }
+      - { label: "时间", name: date, widget: datetime, format: "YYYY-MM-DD HH:mm", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
   - name: site
     label: "站点设置"
     files:
