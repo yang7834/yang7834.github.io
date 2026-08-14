@@ -79,6 +79,7 @@ const searchIndex = posts.map((p) => ({
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
     {description && <meta name="description" content={description} />}
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
@@ -314,6 +315,22 @@ const searchIndex = posts.map((p) => ({
 
       recordVisit();
       loadStats();
+
+      // 标签页标题动态变化（切走显示"页面已丢失"，切回恢复）
+      let realTitle = document.title;
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          realTitle = document.title;
+          document.title = '页面已丢失...';
+        } else {
+          document.title = realTitle;
+        }
+      });
+      document.addEventListener('astro:page-load', () => {
+        if (!document.hidden) {
+          realTitle = document.title;
+        }
+      });
     </script>
   </body>
 </html>
