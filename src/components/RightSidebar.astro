@@ -23,11 +23,11 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
     <h3 class="side-card-title">音乐</h3>
     <div class="music-player">
       <div class="music-cover" id="musicDisc">
-        <span class="music-note">♪</span>
+        <img class="music-cover-img" src="/images/lemon-cover.png" alt="封面" />
       </div>
       <div class="music-info">
-        <div class="music-title">ありがとう…</div>
-        <div class="music-artist">KOKIA</div>
+        <div class="music-title">Lemon</div>
+        <div class="music-artist">米津玄師</div>
       </div>
     </div>
     <div class="music-progress" id="musicProgressBar">
@@ -44,7 +44,7 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
         <input class="music-volume" id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="音量" />
       </div>
     </div>
-    <audio id="musicAudio" src="/music/song.flac" preload="metadata"></audio>
+    <audio id="musicAudio" src="/music/lemon.flac" preload="metadata"></audio>
   </div>
 
   <!-- 日历 -->
