@@ -1015,6 +1015,34 @@ a {
   text-decoration-thickness: 1px;
 }
 
+/* 打赏 */
+.donate-grid {
+  display: flex;
+  gap: 36px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.donate-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.donate-item img {
+  width: 200px;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.donate-item span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 /* ---------- 归档 ---------- */
 
 .archive-year-title {

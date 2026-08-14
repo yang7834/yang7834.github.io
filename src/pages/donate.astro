@@ -1,8 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Placeholder from '../components/Placeholder.astro';
 ---
 
 <Layout title="打赏">
-  <Placeholder title="打赏" description="如果喜欢，可以请我喝杯咖啡。" />
+  <article class="page glass">
+    <h1>打赏</h1>
+    <p>如果觉得这个博客对你有帮助，可以请我喝杯咖啡 ☕</p>
+    <div class="donate-grid">
+      <div class="donate-item">
+        <img src="/images/wechat-qr.png" alt="微信扫码" loading="lazy" />
+        <span>微信扫码</span>
+      </div>
+      <div class="donate-item">
+        <img src="/images/alipay-qr.png" alt="支付宝扫码" loading="lazy" />
+        <span>支付宝扫码</span>
+      </div>
+    </div>
+  </article>
 </Layout>
