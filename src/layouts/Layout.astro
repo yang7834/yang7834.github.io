@@ -1,0 +1,40 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const SITE_TITLE = 'yang7834';
+const SITE_SUBTITLE = '个人博客';
+const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · ${SITE_SUBTITLE}`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="/">{SITE_TITLE}</a>
+      <nav class="site-nav">
+        <a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>首页</a>
+        <a href="/about/" aria-current={Astro.url.pathname === '/about/' ? 'page' : undefined}>关于</a>
+      </nav>
+    </header>
+    <main class="site-main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <span>© {new Date().getFullYear()} {SITE_TITLE}</span>
+    </footer>
+  </body>
+</html>
