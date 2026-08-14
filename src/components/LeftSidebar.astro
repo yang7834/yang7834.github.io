@@ -26,7 +26,9 @@ const moments = (await getCollection('moments')).sort((a, b) => {
 <aside class="sidebar">
   <!-- 个人卡 -->
   <div class="side-card glass profile">
-    <img class="profile-avatar" src={site.avatar} alt="头像" />
+    <a href="/about/" aria-label="关于我">
+      <img class="profile-avatar" src={site.avatar} alt="头像" />
+    </a>
     <h2 class="profile-name">{SITE_TITLE}</h2>
     <p class="profile-bio">{SITE_BIO}</p>
   </div>
