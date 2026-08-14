@@ -37,7 +37,7 @@ const moments = (await getCollection('moments')).sort((a, b) => {
 
   <!-- 公告 -->
   <div class="side-card glass">
-    <h3 class="side-card-title">公告</h3>
+    <h3 class="side-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6l-4 4H4a1 1 0 0 0-1 1z"/><path d="M14 8a5 5 0 0 1 0 8"/></svg>公告</h3>
     <div class="notice">
       <p>{site.notice}</p>
     </div>
@@ -61,7 +61,7 @@ const moments = (await getCollection('moments')).sort((a, b) => {
 
   <!-- 分类 -->
   <div class="side-card glass">
-    <h3 class="side-card-title">分类</h3>
+    <h3 class="side-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>分类</h3>
     <div class="side-tags">
       {
         categoryList.map((cat) => (
@@ -73,7 +73,7 @@ const moments = (await getCollection('moments')).sort((a, b) => {
 
   <!-- 标签 -->
   <div class="side-card glass">
-    <h3 class="side-card-title">标签</h3>
+    <h3 class="side-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29a2 2 0 0 0 2.83 0l7.17-7.17a2 2 0 0 0 0-2.83z"/><circle cx="7" cy="7" r="1"/></svg>标签</h3>
     <div class="side-tags">
       {
         tagList.map((tag) => (

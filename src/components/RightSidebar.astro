@@ -23,7 +23,7 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
 <aside class="sidebar">
   <!-- 音乐播放器 -->
   <div class="side-card glass">
-    <h3 class="side-card-title">音乐</h3>
+    <h3 class="side-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>音乐</h3>
     <div class="music-player">
       <div class="music-cover" id="musicDisc">
         <img class="music-cover-img" src={site.music.cover} alt="封面" />
@@ -51,13 +51,13 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
 
   <!-- 日历 -->
   <div class="side-card glass">
-    <h3 class="side-card-title">日历</h3>
+    <h3 class="side-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>日历</h3>
     <div class="calendar" id="calendar"></div>
   </div>
 
   <!-- 站点统计 -->
   <div class="side-card glass">
-    <h3 class="side-card-title">站点统计</h3>
+    <h3 class="side-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>站点统计</h3>
     <div class="stats-grid">
       <div class="stat-item"><span class="stat-num">{postCount}</span><span class="stat-label">文章</span></div>
       <div class="stat-item"><span class="stat-num">{categories.size}</span><span class="stat-label">分类</span></div>
@@ -70,7 +70,7 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
 
   <!-- 站点信息 -->
   <div class="side-card glass">
-    <h3 class="side-card-title">站点信息</h3>
+    <h3 class="side-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>站点信息</h3>
     <ul class="info-list">
       <li><span class="info-label">博客</span><span class="info-value">{SITE_TITLE}</span></li>
       <li><span class="info-label">建站</span><span class="info-value">{SITE_CREATED}</span></li>

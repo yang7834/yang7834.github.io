@@ -362,6 +362,16 @@ a {
   margin: 0 0 14px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.side-card-title svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  opacity: 0.7;
 }
 
 /* 个人卡 */
