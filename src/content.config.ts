@@ -32,14 +32,4 @@ const links = defineCollection({
   }),
 });
 
-const donations = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/donations' }),
-  schema: z.object({
-    name: z.string(),
-    amount: z.string(),
-    message: z.string().optional().default(''),
-    date: z.coerce.date(),
-  }),
-});
-
-export const collections = { blog, moments, links, donations };
+export const collections = { blog, moments, links };
