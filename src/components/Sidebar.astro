@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+
+const postCount = posts.length;
+const categories = new Set<string>();
+const tags = new Set<string>();
+for (const post of posts) {
+  if (post.data.category) categories.add(post.data.category);
+  for (const tag of post.data.tags) tags.add(tag);
+}
+
+const SITE_TITLE = 'yang7834';
+const SITE_BIO = 'Hello, I\'m yang7834';
+const SITE_CREATED = '2026-08-14';
+
+const created = new Date(SITE_CREATED);
+const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24));
+---
+
+<aside class="sidebar">
+  <!-- 个人卡 -->
+  <div class="side-card glass profile">
+    <img class="profile-avatar" src="/images/avatar.jpeg" alt="头像" />
+    <h2 class="profile-name">{SITE_TITLE}</h2>
+    <p class="profile-bio">{SITE_BIO}</p>
+  </div>
+
+  <!-- 公告 -->
+  <div class="side-card glass">
+    <h3 class="side-card-title">公告</h3>
+    <div class="notice">
+      <p>欢迎来到我的博客 👋</p>
+      <p>这里记录一些想法、笔记和生活。</p>
+    </div>
+  </div>
+
+  <!-- 音乐播放器 -->
+  <div class="side-card glass">
+    <h3 class="side-card-title">音乐</h3>
+    <div class="music-player">
+      <img class="music-cover" src="/images/avatar.jpeg" alt="封面" />
+      <div class="music-info">
+        <div class="music-title">未播放</div>
+        <div class="music-artist">把 mp3 放到 public/music/song.mp3</div>
+      </div>
+      <button class="music-toggle" id="musicToggle" type="button" aria-label="播放">▶</button>
+    </div>
+    <audio id="musicAudio" src="/music/song.mp3" preload="none"></audio>
+  </div>
+
+  <!-- 站点统计 -->
+  <div class="side-card glass">
+    <h3 class="side-card-title">站点统计</h3>
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-num">{postCount}</span><span class="stat-label">文章</span></div>
+      <div class="stat-item"><span class="stat-num">{categories.size}</span><span class="stat-label">分类</span></div>
+      <div class="stat-item"><span class="stat-num">{tags.size}</span><span class="stat-label">标签</span></div>
+      <div class="stat-item"><span class="stat-num">{days}</span><span class="stat-label">天</span></div>
+    </div>
+  </div>
+
+  <!-- 站点信息 -->
+  <div class="side-card glass">
+    <h3 class="side-card-title">站点信息</h3>
+    <ul class="info-list">
+      <li><span class="info-label">博客</span><span class="info-value">{SITE_TITLE}</span></li>
+      <li><span class="info-label">建站</span><span class="info-value">{SITE_CREATED}</span></li>
+      <li><span class="info-label">技术</span><span class="info-value">Astro</span></li>
+      <li><span class="info-label">托管</span><span class="info-value">GitHub Pages</span></li>
+    </ul>
+  </div>
+</aside>
+
+<script>
+  const toggle = document.getElementById('musicToggle');
+  const audio = document.getElementById('musicAudio');
+  if (toggle && audio) {
+    toggle.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().then(() => (toggle.textContent = '⏸')).catch(() => {});
+      } else {
+        audio.pause();
+        toggle.textContent = '▶';
+      }
+    });
+  }
+</script>

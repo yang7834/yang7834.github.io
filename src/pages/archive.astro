@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../lib/format';
 
@@ -16,26 +17,31 @@ for (const post of posts) {
 ---
 
 <Layout title="归档">
-  <article class="page">
-    <h1>归档</h1>
-    {
-      [...byYear.entries()].map(([year, yearPosts]) => (
-        <section class="archive-year">
-          <h2 class="archive-year-title">{year}</h2>
-          <ul class="archive-list">
-            {
-              yearPosts.map((post) => (
-                <li class="archive-item">
-                  <a href={`/blog/${post.id}/`}>
-                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-                    <span class="archive-title">{post.data.title}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </section>
-      ))
-    }
-  </article>
+  <div class="home-layout">
+    <Sidebar />
+    <div class="content">
+      <article class="page glass">
+        <h1>归档</h1>
+        {
+          [...byYear.entries()].map(([year, yearPosts]) => (
+            <section class="archive-year">
+              <h2 class="archive-year-title">{year}</h2>
+              <ul class="archive-list">
+                {
+                  yearPosts.map((post) => (
+                    <li class="archive-item">
+                      <a href={`/blog/${post.id}/`}>
+                        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                        <span class="archive-title">{post.data.title}</span>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </section>
+          ))
+        }
+      </article>
+    </div>
+  </div>
 </Layout>

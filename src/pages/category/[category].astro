@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../../lib/format';
 
@@ -22,38 +23,43 @@ const posts = (await getCollection('blog'))
 ---
 
 <Layout title={`分类：${category}`}>
-  <section class="intro">
-    <h1>分类：{category}</h1>
-    <p>共 {posts.length} 篇文章。</p>
-  </section>
+  <div class="home-layout">
+    <Sidebar />
+    <div class="content">
+      <section class="intro glass">
+        <h1>分类：{category}</h1>
+        <p>共 {posts.length} 篇文章。</p>
+      </section>
 
-  <nav class="filter-nav">
-    <a class="filter-item" href="/">全部</a>
-    <a class="filter-item" href="/archive/">归档</a>
-  </nav>
+      <nav class="filter-nav glass">
+        <a class="filter-item" href="/">全部</a>
+        <a class="filter-item" href="/archive/">归档</a>
+      </nav>
 
-  <div class="post-cards">
-    {
-      posts.map((post) => (
-        <article class="post-card">
-          <a class="post-card-link" href={`/blog/${post.id}/`}>
-            <div class="post-card-body">
-              <h2 class="post-title">{post.data.title}</h2>
-              {post.data.description && <p class="post-desc">{post.data.description}</p>}
-              <div class="post-card-meta">
-                <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-              </div>
-            </div>
-            {
-              post.data.cover && (
-                <div class="post-card-cover">
-                  <img src={post.data.cover} alt={post.data.title} loading="lazy" />
+      <div class="post-cards">
+        {
+          posts.map((post) => (
+            <article class="post-card glass">
+              <a class="post-card-link" href={`/blog/${post.id}/`}>
+                <div class="post-card-body">
+                  <h2 class="post-title">{post.data.title}</h2>
+                  {post.data.description && <p class="post-desc">{post.data.description}</p>}
+                  <div class="post-card-meta">
+                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  </div>
                 </div>
-              )
-            }
-          </a>
-        </article>
-      ))
-    }
+                {
+                  post.data.cover && (
+                    <div class="post-card-cover">
+                      <img src={post.data.cover} alt={post.data.title} loading="lazy" />
+                    </div>
+                  )
+                }
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </Layout>

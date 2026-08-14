@@ -11,6 +11,15 @@ const { title, description } = Astro.props;
 const SITE_TITLE = 'yang7834';
 const SITE_SUBTITLE = '个人博客';
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · ${SITE_SUBTITLE}`;
+
+const navItems = [
+  { label: '主页', href: '/' },
+  { label: '文章', href: '/archive/' },
+  { label: '社交', href: 'https://github.com/yang7834', external: true },
+  { label: '我的', href: '/about/' },
+  { label: '关于', href: '/about/' },
+  { label: '链接', href: '/archive/' },
+];
 ---
 
 <!doctype html>
@@ -23,12 +32,21 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · ${SITE
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>
+    <div class="bg-layer"></div>
     <header class="site-header">
       <a class="site-title" href="/">{SITE_TITLE}</a>
       <nav class="site-nav">
-        <a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>首页</a>
-        <a href="/archive/" aria-current={Astro.url.pathname === '/archive/' ? 'page' : undefined}>归档</a>
-        <a href="/about/" aria-current={Astro.url.pathname === '/about/' ? 'page' : undefined}>关于</a>
+        {
+          navItems.map((item) =>
+            item.external ? (
+              <a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
+            ) : (
+              <a href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>
+                {item.label}
+              </a>
+            )
+          )
+        }
       </nav>
     </header>
     <main class="site-main">
