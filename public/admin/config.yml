@@ -15,7 +15,7 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "标题", name: title, widget: string }
-      - { label: "网址标识", name: slug, widget: string, hint: "文章网址最后一段，用小写英文或拼音、短横线连接，例如 hello-world" }
+      - { label: "网址标识", name: slug, widget: string, hint: "文章网址最后一段，只能用小写英文、数字和短横线，例如 hello-world", pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "只能用小写英文、数字和短横线（-）"] }
       - { label: "简介", name: description, widget: string }
       - { label: "日期", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { label: "标签", name: tags, widget: list, default: [], required: false }

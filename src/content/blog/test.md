@@ -1,6 +1,6 @@
 ---
 title: test
-slug: 看不懂
+slug: test
 description: 你好
 date: 2026-08-14
 tags:
