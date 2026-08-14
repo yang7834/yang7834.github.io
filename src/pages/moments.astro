@@ -1,8 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Placeholder from '../components/Placeholder.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../lib/format';
+
+const moments = (await getCollection('moments')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
 ---
 
 <Layout title="动态">
-  <Placeholder title="动态" description="这里记录我的日常动态。" />
+  <article class="page glass">
+    <h1>动态</h1>
+    <div class="moment-list">
+      {
+        moments.map((m) => (
+          <div class="moment-item">
+            <div class="moment-text">{m.body}</div>
+            <span class="moment-date">{formatDate(m.data.date)}</span>
+          </div>
+        ))
+      }
+    </div>
+  </article>
 </Layout>
