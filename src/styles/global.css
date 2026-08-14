@@ -930,6 +930,21 @@ a {
   border-radius: 999px;
 }
 
+.side-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.side-tags .tag {
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.side-tags .tag:hover {
+  border-color: var(--line-strong);
+  color: var(--fg);
+}
+
 .tag-cloud {
   display: flex;
   flex-wrap: wrap;

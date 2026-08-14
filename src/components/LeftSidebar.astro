@@ -6,6 +6,16 @@ import { formatDateTime } from '../lib/format';
 const SITE_TITLE = site.title;
 const SITE_BIO = site.bio;
 
+const posts = await getCollection('blog');
+const categories = new Set<string>();
+const tags = new Set<string>();
+for (const post of posts) {
+  if (post.data.category) categories.add(post.data.category);
+  for (const tag of post.data.tags) tags.add(tag);
+}
+const categoryList = [...categories].sort();
+const tagList = [...tags].sort();
+
 const moments = (await getCollection('moments')).sort((a, b) => {
   if (a.data.sticky && !b.data.sticky) return -1;
   if (!a.data.sticky && b.data.sticky) return 1;
@@ -40,6 +50,30 @@ const moments = (await getCollection('moments')).sort((a, b) => {
             <div class="moment-text">{m.body}</div>
             <span class="moment-date">{formatDateTime(m.data.date)}</span>
           </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- 分类 -->
+  <div class="side-card glass">
+    <h3 class="side-card-title">分类</h3>
+    <div class="side-tags">
+      {
+        categoryList.map((cat) => (
+          <a class="tag" href={`/category/${encodeURIComponent(cat)}/`}>{cat}</a>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- 标签 -->
+  <div class="side-card glass">
+    <h3 class="side-card-title">标签</h3>
+    <div class="side-tags">
+      {
+        tagList.map((tag) => (
+          <a class="tag" href={`/tag/${encodeURIComponent(tag)}/`}>#{tag}</a>
         ))
       }
     </div>
