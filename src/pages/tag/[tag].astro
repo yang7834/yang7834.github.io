@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import LeftSidebar from '../../components/LeftSidebar.astro';
 import RightSidebar from '../../components/RightSidebar.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../../lib/format';
+import { formatDateTime } from '../../lib/format';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -18,45 +18,52 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const posts = (await getCollection('blog'))
+const allPosts = await getCollection('blog');
+const posts = allPosts
   .filter((p) => p.data.tags.includes(tag))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categoryCounts = new Map<string, number>();
+for (const post of allPosts) {
+  if (post.data.category) {
+    categoryCounts.set(post.data.category, (categoryCounts.get(post.data.category) || 0) + 1);
+  }
+}
+const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
 <Layout title={`标签：${tag}`}>
   <div class="home-layout">
     <LeftSidebar />
     <div class="content">
-      <section class="intro glass">
-        <h1>标签：{tag}</h1>
-        <p>共 {posts.length} 篇文章。</p>
-      </section>
-      <div class="post-cards">
+      <nav class="filter-nav glass">
+        <a class="filter-item" href="/">全部</a>
+        <a class="filter-item" href="/archive/">归档</a>
         {
-          posts.map((post) => (
-            <article class="post-card glass">
-              <a class="post-card-link" href={`/blog/${post.id}/`}>
-                <div class="post-card-body">
-                  <h2 class="post-title">{post.data.title}</h2>
-                  {post.data.description && <p class="post-desc">{post.data.description}</p>}
-                  <div class="post-card-meta">
-                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-                  </div>
-                </div>
-                {
-                  post.data.cover && (
-                    <div class="post-card-cover">
-                      <img src={post.data.cover} alt={post.data.title} loading="lazy" />
-                    </div>
-                  )
-                }
-              </a>
-            </article>
+          categories.map(([cat, count]) => (
+            <a class="filter-item" href={`/category/${encodeURIComponent(cat)}/`}>
+              {cat}<span class="filter-count">{count}</span>
+            </a>
           ))
         }
-      </div>
-    </div>
+      </nav>
 
+      <article class="page glass">
+        <h1>标签：{tag}</h1>
+        <ul class="archive-list">
+          {
+            posts.map((post) => (
+              <li class="archive-item">
+                <a href={`/blog/${post.id}/`}>
+                  <time datetime={post.data.date.toISOString()}>{formatDateTime(post.data.date)}</time>
+                  <span class="archive-title">{post.data.title}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
     <RightSidebar />
   </div>
 </Layout>
