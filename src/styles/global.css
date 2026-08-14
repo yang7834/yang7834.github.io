@@ -422,12 +422,36 @@ a {
   gap: 12px;
 }
 
-.music-cover {
-  width: 52px;
-  height: 52px;
-  border-radius: 8px;
-  object-fit: cover;
+.music-disc {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: conic-gradient(#1a1a1a, #3a3a3a, #1a1a1a, #2e2e2e, #1a1a1a, #383838, #1a1a1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
+}
+
+.music-disc-center {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #d0d0d0;
+}
+
+.music-disc.playing {
+  animation: music-spin 4s linear infinite;
+}
+
+@keyframes music-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .music-info {
@@ -467,6 +491,43 @@ a {
 .music-toggle:hover {
   background: var(--line-strong);
   color: #fff;
+}
+
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.music-volume {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  outline: none;
+  cursor: pointer;
+}
+
+.music-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  cursor: pointer;
+}
+
+.music-volume::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  border: none;
+  cursor: pointer;
 }
 
 /* 站点统计 */
@@ -633,6 +694,15 @@ a {
   font-size: 0.78rem;
   color: var(--muted);
   margin-top: 8px;
+}
+
+.sticky-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #fff;
+  background: var(--line-strong);
+  padding: 1px 8px;
+  border-radius: 999px;
 }
 
 .post-title {

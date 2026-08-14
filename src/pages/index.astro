@@ -5,9 +5,11 @@ import RightSidebar from '../components/RightSidebar.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../lib/format';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
+const posts = (await getCollection('blog')).sort((a, b) => {
+  if (a.data.sticky && !b.data.sticky) return -1;
+  if (!a.data.sticky && b.data.sticky) return 1;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
 
 const categoryCounts = new Map<string, number>();
 for (const post of posts) {
@@ -50,6 +52,7 @@ const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
                   <h2 class="post-title">{post.data.title}</h2>
                   {post.data.description && <p class="post-desc">{post.data.description}</p>}
                   <div class="post-card-meta">
+                    {post.data.sticky && <span class="sticky-badge">置顶</span>}
                     <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
                     {post.data.category && <span>{post.data.category}</span>}
                   </div>
