@@ -1142,3 +1142,64 @@ a {
     font-size: 1.6rem;
   }
 }
+
+/* ---------- 动画 ---------- */
+
+/* 页面切换过渡 */
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: page-in 0.35s ease;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 卡片悬停上浮 */
+.post-card,
+.side-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.14);
+}
+
+.side-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* 头像悬停缩放 */
+.profile-avatar {
+  transition: transform 0.25s ease;
+}
+
+.profile a:hover .profile-avatar {
+  transform: scale(1.06);
+}
+
+/* 封面悬停缩放 */
+.post-card-cover {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.post-card-cover img {
+  transition: transform 0.35s ease;
+}
+
+.post-card:hover .post-card-cover img {
+  transform: scale(1.06);
+}
