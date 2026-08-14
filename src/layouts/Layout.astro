@@ -316,14 +316,21 @@ const searchIndex = posts.map((p) => ({
       recordVisit();
       loadStats();
 
-      // 标签页标题动态变化（切走显示"页面已丢失"，切回恢复）
+      // 标签页标题动态变化（切走"页面已丢失"，切回"骗你的欢迎回来"→3秒后恢复）
       let realTitle = document.title;
+      let titleTimer = null;
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
+          if (titleTimer) { clearTimeout(titleTimer); titleTimer = null; }
           realTitle = document.title;
           document.title = '页面已丢失...';
         } else {
-          document.title = realTitle;
+          document.title = '骗你的，欢迎回来';
+          if (titleTimer) clearTimeout(titleTimer);
+          titleTimer = setTimeout(() => {
+            document.title = realTitle;
+            titleTimer = null;
+          }, 3000);
         }
       });
       document.addEventListener('astro:page-load', () => {
