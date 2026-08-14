@@ -15,12 +15,6 @@ const SITE_TITLE = 'yang7834';
 const SITE_CREATED = '2026-08-14';
 const created = new Date(SITE_CREATED);
 const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24));
-
-const moments = [
-  { text: '博客上线啦 🎉', date: '2026-08-14' },
-  { text: '换上了新头像', date: '2026-08-14' },
-  { text: '开始记录一些想法和日常', date: '2026-08-14' },
-];
 ---
 
 <aside class="sidebar">
@@ -36,21 +30,6 @@ const moments = [
       <button class="music-toggle" id="musicToggle" type="button" aria-label="播放">▶</button>
     </div>
     <audio id="musicAudio" src="/music/song.mp3" preload="none"></audio>
-  </div>
-
-  <!-- 最新动态 -->
-  <div class="side-card glass">
-    <h3 class="side-card-title">最新动态</h3>
-    <div class="moment-list">
-      {
-        moments.map((m) => (
-          <div class="moment-item">
-            <div class="moment-text">{m.text}</div>
-            <span class="moment-date">{m.date}</span>
-          </div>
-        ))
-      }
-    </div>
   </div>
 
   <!-- 日历 -->

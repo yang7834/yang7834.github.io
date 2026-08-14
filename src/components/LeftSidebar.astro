@@ -1,6 +1,12 @@
 ---
 const SITE_TITLE = 'yang7834';
 const SITE_BIO = 'Hello, I\'m yang7834';
+
+const moments = [
+  { text: '博客上线啦 🎉', date: '2026-08-14' },
+  { text: '换上了新头像', date: '2026-08-14' },
+  { text: '开始记录一些想法和日常', date: '2026-08-14' },
+];
 ---
 
 <aside class="sidebar">
@@ -17,6 +23,21 @@ const SITE_BIO = 'Hello, I\'m yang7834';
     <div class="notice">
       <p>欢迎来到我的博客 👋</p>
       <p>这里记录一些想法、笔记和生活。</p>
+    </div>
+  </div>
+
+  <!-- 最新动态 -->
+  <div class="side-card glass">
+    <h3 class="side-card-title">最新动态</h3>
+    <div class="moment-list">
+      {
+        moments.map((m) => (
+          <div class="moment-item">
+            <div class="moment-text">{m.text}</div>
+            <span class="moment-date">{m.date}</span>
+          </div>
+        ))
+      }
     </div>
   </div>
 </aside>
