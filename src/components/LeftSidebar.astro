@@ -1,18 +1,20 @@
 ---
-const SITE_TITLE = 'yang7834';
-const SITE_BIO = 'Hello, I\'m yang7834';
+import { getCollection } from 'astro:content';
+import site from '../data/site.json';
+import { formatDate } from '../lib/format';
 
-const moments = [
-  { text: '博客上线啦 🎉', date: '2026-08-14' },
-  { text: '换上了新头像', date: '2026-08-14' },
-  { text: '开始记录一些想法和日常', date: '2026-08-14' },
-];
+const SITE_TITLE = site.title;
+const SITE_BIO = site.bio;
+
+const moments = (await getCollection('moments')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
 ---
 
 <aside class="sidebar">
   <!-- 个人卡 -->
   <div class="side-card glass profile">
-    <img class="profile-avatar" src="/images/avatar.jpeg" alt="头像" />
+    <img class="profile-avatar" src={site.avatar} alt="头像" />
     <h2 class="profile-name">{SITE_TITLE}</h2>
     <p class="profile-bio">{SITE_BIO}</p>
   </div>
@@ -21,8 +23,7 @@ const moments = [
   <div class="side-card glass">
     <h3 class="side-card-title">公告</h3>
     <div class="notice">
-      <p>欢迎来到我的博客 👋</p>
-      <p>这里记录一些想法、笔记和生活。</p>
+      <p>{site.notice}</p>
     </div>
   </div>
 
@@ -33,8 +34,8 @@ const moments = [
       {
         moments.map((m) => (
           <div class="moment-item">
-            <div class="moment-text">{m.text}</div>
-            <span class="moment-date">{m.date}</span>
+            <div class="moment-text">{m.body}</div>
+            <span class="moment-date">{formatDate(m.data.date)}</span>
           </div>
         ))
       }

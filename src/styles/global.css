@@ -935,6 +935,43 @@ a {
   font-size: 0.75rem;
 }
 
+/* 友链 */
+.friend-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.friend-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.friend-item:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.friend-item a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 0;
+}
+
+.friend-name {
+  font-weight: 600;
+}
+
+.friend-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.friend-item a:hover .friend-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
 /* ---------- 归档 ---------- */
 
 .archive-year-title {

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
+import site from '../data/site.json';
 
 interface Props {
   title?: string;
@@ -9,8 +10,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 
-const SITE_TITLE = 'yang7834';
-const SITE_SUBTITLE = '个人博客';
+const SITE_TITLE = site.title;
+const SITE_SUBTITLE = site.subtitle;
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · ${SITE_SUBTITLE}`;
 
 type NavItem = {
@@ -54,9 +55,9 @@ const navItems: NavItem[] = [
   {
     label: '链接',
     children: [
-      { label: 'GitHub', href: 'https://github.com/yang7834', external: true },
-      { label: 'Bilibili', href: 'https://space.bilibili.com/538490059', external: true },
-      { label: '抖音', href: 'https://www.douyin.com/user/MS4wLjABAAAAAexxD-Q_SWFAhOMDSqH0yS7Q0DyDqogIhWXdjDsovV8', external: true },
+      { label: 'GitHub', href: site.social.github, external: true },
+      { label: 'Bilibili', href: site.social.bilibili, external: true },
+      { label: '抖音', href: site.social.douyin, external: true },
     ],
   },
 ];

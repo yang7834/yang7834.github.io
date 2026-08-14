@@ -1,0 +1,19 @@
+{
+  "title": "yang7834",
+  "subtitle": "个人博客",
+  "bio": "Hello, I'm yang7834",
+  "avatar": "/images/avatar.jpeg",
+  "created": "2026-08-14",
+  "notice": "欢迎来到我的博客 👋 这里记录一些想法、笔记和生活。",
+  "social": {
+    "github": "https://github.com/yang7834",
+    "bilibili": "https://space.bilibili.com/538490059",
+    "douyin": "https://www.douyin.com/user/MS4wLjABAAAAAexxD-Q_SWFAhOMDSqH0yS7Q0DyDqogIhWXdjDsovV8"
+  },
+  "music": {
+    "title": "Lemon",
+    "artist": "米津玄師",
+    "audio": "/music/lemon.flac",
+    "cover": "/images/lemon-cover.png"
+  }
+}

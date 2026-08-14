@@ -23,3 +23,48 @@ collections:
       - { label: "标签", name: tags, widget: list, default: [], required: false }
       - { label: "封面图", name: cover, widget: image, required: false }
       - { label: "正文", name: body, widget: markdown }
+  - name: moments
+    label: "动态"
+    folder: "src/content/moments"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "日期", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "内容", name: body, widget: text }
+  - name: links
+    label: "友链"
+    folder: "src/content/links"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "名称", name: name, widget: string }
+      - { label: "链接", name: url, widget: string }
+      - { label: "描述", name: description, widget: string, required: false }
+  - name: site
+    label: "站点设置"
+    files:
+      - name: settings
+        label: "基本设置"
+        file: "src/data/site.json"
+        fields:
+          - { label: "博客名", name: title, widget: string }
+          - { label: "副标题", name: subtitle, widget: string }
+          - { label: "个人简介", name: bio, widget: string }
+          - { label: "头像", name: avatar, widget: string }
+          - { label: "建站日期", name: created, widget: string }
+          - { label: "公告", name: notice, widget: text }
+          - label: "社交链接"
+            name: social
+            widget: object
+            fields:
+              - { label: "GitHub", name: github, widget: string }
+              - { label: "Bilibili", name: bilibili, widget: string }
+              - { label: "抖音", name: douyin, widget: string }
+          - label: "音乐"
+            name: music
+            widget: object
+            fields:
+              - { label: "歌名", name: title, widget: string }
+              - { label: "歌手", name: artist, widget: string }
+              - { label: "音频文件", name: audio, widget: string }
+              - { label: "封面图", name: cover, widget: string }

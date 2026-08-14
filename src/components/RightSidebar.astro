@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import site from '../data/site.json';
 
 const posts = await getCollection('blog');
 
@@ -11,8 +12,8 @@ for (const post of posts) {
   for (const tag of post.data.tags) tags.add(tag);
 }
 
-const SITE_TITLE = 'yang7834';
-const SITE_CREATED = '2026-08-14';
+const SITE_TITLE = site.title;
+const SITE_CREATED = site.created;
 const created = new Date(SITE_CREATED);
 const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24));
 ---
@@ -23,11 +24,11 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
     <h3 class="side-card-title">音乐</h3>
     <div class="music-player">
       <div class="music-cover" id="musicDisc">
-        <img class="music-cover-img" src="/images/lemon-cover.png" alt="封面" />
+        <img class="music-cover-img" src={site.music.cover} alt="封面" />
       </div>
       <div class="music-info">
-        <div class="music-title">Lemon</div>
-        <div class="music-artist">米津玄師</div>
+        <div class="music-title">{site.music.title}</div>
+        <div class="music-artist">{site.music.artist}</div>
       </div>
     </div>
     <div class="music-progress" id="musicProgressBar">
@@ -44,7 +45,7 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
         <input class="music-volume" id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="音量" />
       </div>
     </div>
-    <audio id="musicAudio" src="/music/lemon.flac" preload="metadata"></audio>
+    <audio id="musicAudio" src={site.music.audio} preload="metadata"></audio>
   </div>
 
   <!-- 日历 -->
