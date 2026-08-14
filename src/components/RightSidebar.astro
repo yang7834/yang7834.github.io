@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import site from '../data/site.json';
 
 const posts = await getCollection('blog');
+const moments = await getCollection('moments');
+const links = await getCollection('links');
 
 const postCount = posts.length;
 const categories = new Set<string>();
@@ -61,6 +63,8 @@ const days = Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)
       <div class="stat-item"><span class="stat-num">{postCount}</span><span class="stat-label">文章</span></div>
       <div class="stat-item"><span class="stat-num">{categories.size}</span><span class="stat-label">分类</span></div>
       <div class="stat-item"><span class="stat-num">{tags.size}</span><span class="stat-label">标签</span></div>
+      <div class="stat-item"><span class="stat-num">{moments.length}</span><span class="stat-label">动态</span></div>
+      <div class="stat-item"><span class="stat-num">{links.length}</span><span class="stat-label">友链</span></div>
       <div class="stat-item"><span class="stat-num">{days}</span><span class="stat-label">天</span></div>
     </div>
   </div>
