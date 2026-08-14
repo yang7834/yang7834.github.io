@@ -170,9 +170,9 @@ const searchIndex = posts.map((p) => ({
         });
       }
 
-      // 音乐播放器（全局 audio + 每次导航后重新绑定 UI + 导航后自动恢复播放）
+      // 音乐播放器（全局 audio，导航导致暂停时自动恢复）
       const musicAudio = document.getElementById('musicAudio');
-      let musicWasPlaying = false;
+      let shouldPlay = false;
 
       function fmtMusic(s) {
         if (!isFinite(s)) return '0:00';
@@ -210,13 +210,11 @@ const searchIndex = posts.map((p) => ({
         if (toggle) {
           toggle.onclick = () => {
             if (musicAudio.paused) {
-              musicAudio.play().then(() => {
-                musicWasPlaying = true;
-                syncMusicUI();
-              }).catch(() => {});
+              shouldPlay = true;
+              musicAudio.play().then(syncMusicUI).catch(() => {});
             } else {
+              shouldPlay = false;
               musicAudio.pause();
-              musicWasPlaying = false;
               syncMusicUI();
             }
           };
@@ -239,18 +237,24 @@ const searchIndex = posts.map((p) => ({
       if (musicAudio) {
         musicAudio.addEventListener('loadedmetadata', syncMusicUI);
         musicAudio.addEventListener('timeupdate', syncMusicUI);
+        musicAudio.addEventListener('play', syncMusicUI);
         musicAudio.addEventListener('ended', () => {
-          musicWasPlaying = false;
+          shouldPlay = false;
           syncMusicUI();
+        });
+        musicAudio.addEventListener('pause', () => {
+          // 导航导致的暂停，自动恢复
+          if (shouldPlay) {
+            setTimeout(() => {
+              if (shouldPlay && musicAudio.paused) {
+                musicAudio.play().catch(() => {});
+              }
+            }, 120);
+          }
         });
       }
 
-      document.addEventListener('astro:page-load', () => {
-        initMusic();
-        if (musicWasPlaying && musicAudio && musicAudio.paused) {
-          musicAudio.play().then(syncMusicUI).catch(() => {});
-        }
-      });
+      document.addEventListener('astro:page-load', initMusic);
       initMusic();
     </script>
   </body>
