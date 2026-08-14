@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Sidebar from '../../components/Sidebar.astro';
+import LeftSidebar from '../../components/LeftSidebar.astro';
+import RightSidebar from '../../components/RightSidebar.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../../lib/format';
 
@@ -24,7 +25,7 @@ const posts = (await getCollection('blog'))
 
 <Layout title={`分类：${category}`}>
   <div class="home-layout">
-    <Sidebar />
+    <LeftSidebar />
     <div class="content">
       <section class="intro glass">
         <h1>分类：{category}</h1>
@@ -61,5 +62,7 @@ const posts = (await getCollection('blog'))
         }
       </div>
     </div>
+
+    <RightSidebar />
   </div>
 </Layout>
