@@ -112,11 +112,13 @@ a {
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   margin: 0 auto;
 }
 
 .site-nav a {
   font-size: 0.9rem;
+  line-height: 1;
   color: var(--muted);
   transition: color 0.15s ease;
 }
@@ -132,7 +134,9 @@ a {
 }
 
 .nav-label {
+  display: inline-block;
   font-size: 0.9rem;
+  line-height: 1;
   color: var(--muted);
   cursor: default;
   transition: color 0.15s ease;
