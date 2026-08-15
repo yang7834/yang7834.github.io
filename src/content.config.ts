@@ -28,6 +28,7 @@ const links = defineCollection({
   schema: z.object({
     name: z.string(),
     url: z.string(),
+    avatar: z.string().optional(),
     description: z.string().optional().default(''),
   }),
 });

@@ -38,9 +38,10 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "名称", name: name, widget: string }
-      - { label: "链接", name: url, widget: string }
-      - { label: "描述", name: description, widget: string, required: false }
+      - { label: "站点名称", name: name, widget: string }
+      - { label: "站点链接", name: url, widget: string }
+      - { label: "站点头像", name: avatar, widget: image, required: false }
+      - { label: "站点描述", name: description, widget: string, required: false }
   - name: site
     label: "站点设置"
     files:
