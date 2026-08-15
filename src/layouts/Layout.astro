@@ -90,14 +90,12 @@ const searchIndex = posts.map((p) => ({
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://giscus.app" />
     <link rel="preconnect" href="https://eohtftdqtxbkryaktqrt.supabase.co" />
-    <script is:inline src="/js/tsparticles.min.js"></script>
     {description && <meta name="description" content={description} />}
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
   </head>
   <body>
-    <div class="bg-layer"></div>
-    <canvas id="bgCanvas" class="bg-canvas"></canvas>
+    <div class="bg-layer" style={`background-image: url('${site.background}')`}></div>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
     <header class="site-header">
       <a class="site-title" href="/">{SITE_TITLE}</a>
@@ -151,53 +149,6 @@ const searchIndex = posts.map((p) => ({
     <audio id="musicAudio" src={site.music.audio} preload="metadata" transition:persist></audio>
 
     <script define:vars={{ searchIndex }}>
-      // 动态粒子背景（tsparticles 黑白星座）
-      function initBackground() {
-        if (!window.tsParticles) return;
-        const bgCanvas = document.getElementById('bgCanvas');
-        if (bgCanvas) {
-          bgCanvas.width = window.innerWidth;
-          bgCanvas.height = window.innerHeight;
-        }
-        tsParticles.load('bgCanvas', {
-          fullScreen: { enable: false },
-          background: { color: 'transparent' },
-          particles: {
-            number: { value: 120, density: { enable: true, value_area: 800 } },
-            color: { value: '#111111' },
-            shape: { type: 'circle' },
-            opacity: { value: 0.5, random: true },
-            size: { value: 2, random: true },
-            links: {
-              enable: true,
-              distance: 150,
-              color: '#111111',
-              opacity: 0.3,
-              width: 1,
-            },
-            move: {
-              enable: true,
-              speed: 1,
-              direction: 'none',
-              outModes: { default: 'bounce' },
-            },
-          },
-          interactivity: {
-            events: {
-              onHover: { enable: true, mode: 'grab' },
-            },
-            modes: {
-              grab: { distance: 180, links: { opacity: 0.5 } },
-            },
-          },
-          detectRetina: true,
-        });
-      }
-      if (document.readyState === 'complete') {
-        initBackground();
-      } else {
-        window.addEventListener('load', initBackground);
-      }
 
       // 下拉菜单：点击切换，点击外部关闭
       function initNavDropdown() {
