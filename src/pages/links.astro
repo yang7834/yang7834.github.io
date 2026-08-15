@@ -9,34 +9,8 @@ const links = await getCollection('links');
 <Layout title="友链">
   <article class="page glass">
     <h1>友链</h1>
-    <p class="friend-intro">欢迎交换友链。添加本站后，在留言区留下你的信息，审核通过后即可上墙。</p>
+    <p class="friend-intro">欢迎交换友链，下面是已收录的好友站点。</p>
 
-    <h2>我的站点</h2>
-    <div class="friend-self">
-      <img class="friend-self-avatar" src={site.avatar} alt="站点头像" width="64" height="64" />
-      <div class="friend-self-info">
-        <span>站点名称：{site.title}</span>
-        <span>站点链接：https://yang7834.github.io</span>
-        <span>站点描述：{site.subtitle}</span>
-      </div>
-    </div>
-
-    <h2>申请友链</h2>
-    <ol class="friend-steps">
-      <li>先在你的站点添加本站友链（上面的信息）</li>
-      <li>在本站留言区留下你的四个信息：站点名称、站点链接、站点头像、站点描述</li>
-      <li>等待审核，通过后我会把你的站点添加到友链列表</li>
-    </ol>
-
-    <h2>注意事项</h2>
-    <ul class="friend-notes">
-      <li>站点需能正常访问，内容健康、无违法信息</li>
-      <li>请先在贵站添加本站友链，再申请</li>
-      <li>头像建议使用方形图片，会显示为圆形</li>
-      <li>审核通过后会在友链列表展示，若长期无法访问可能会移除</li>
-    </ul>
-
-    <h2>好友</h2>
     {
       links.length > 0 ? (
         <ul class="friend-list">
@@ -60,5 +34,36 @@ const links = await getCollection('links');
         <p class="friend-empty">暂无友链，欢迎来申请～</p>
       )
     }
+
+    <h2 class="friend-apply-title">申请友链</h2>
+    <div class="friend-apply">
+      <div class="friend-apply-col">
+        <h3>我的站点</h3>
+        <div class="friend-self">
+          <img class="friend-self-avatar" src={site.avatar} alt="头像" width="64" height="64" />
+          <div class="friend-self-info">
+            <span>站点名称：{site.title}</span>
+            <span>站点链接：https://yang7834.github.io</span>
+            <span>站点描述：{site.subtitle}</span>
+          </div>
+        </div>
+      </div>
+      <div class="friend-apply-col">
+        <h3>申请流程</h3>
+        <ol class="friend-steps">
+          <li>先在你的站点添加本站友链</li>
+          <li>在本站留言区留下四个信息：站点名称、站点链接、头像链接、站点描述</li>
+          <li>等待审核，通过后即可上墙</li>
+        </ol>
+      </div>
+    </div>
+
+    <h3>注意事项</h3>
+    <ul class="friend-notes">
+      <li>站点需能正常访问，内容健康、无违法信息</li>
+      <li>请先在贵站添加本站友链，再申请</li>
+      <li>头像建议使用方形图片，会显示为圆形</li>
+      <li>审核通过后展示在列表，长期无法访问可能会移除</li>
+    </ul>
   </article>
 </Layout>
