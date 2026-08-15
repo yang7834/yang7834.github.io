@@ -377,6 +377,24 @@ button {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  counter-reset: card;
+}
+
+.side-card {
+  counter-increment: card;
+}
+
+.side-card-title::before {
+  content: counter(card, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fff;
+  background: #111;
+  padding: 1px 6px;
+  margin-right: 2px;
+  border-radius: 2px;
+  flex: 0 0 auto;
 }
 
 .side-card {
@@ -737,8 +755,8 @@ button {
 
 .intro h1 {
   font-family: var(--font-serif);
-  font-size: 1.9rem;
-  font-weight: 700;
+  font-size: 2.1rem;
+  font-weight: 900;
   line-height: 1.2;
   margin: 0 0 8px;
 }
@@ -864,7 +882,7 @@ button {
 .post-title {
   font-family: var(--font-serif);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0 0 6px;
 }
 
@@ -954,10 +972,25 @@ button {
 }
 
 .post-body blockquote {
+  position: relative;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 8px;
+  padding: 12px 16px;
   margin: 1.5em 0;
-  padding: 0.1em 0 0.1em 1.25em;
-  border-left: 2px solid var(--line-strong);
-  color: var(--muted);
+  box-shadow: 3px 3px 0 #111;
+  color: var(--fg);
+}
+
+.post-body blockquote::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 24px;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-bottom-color: #111;
 }
 
 .post-body code {
@@ -1000,7 +1033,8 @@ button {
 
 .page h1 {
   font-family: var(--font-serif);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
+  font-weight: 900;
   margin: 0 0 18px;
 }
 
@@ -1254,9 +1288,25 @@ button {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.post-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
 .post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.14);
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 #111;
+  background: #111;
+}
+
+.post-card:hover .post-title,
+.post-card:hover .post-desc,
+.post-card:hover .post-card-meta {
+  color: #fff;
+}
+
+.post-card:hover .tag {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .side-card:hover {
