@@ -1219,9 +1219,9 @@ button {
 .friend-steps li:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: 15px;
-  top: 40px;
-  bottom: -2px;
+  left: 16px;
+  top: 36px;
+  bottom: 0;
   width: 2px;
   background: #111;
 }
@@ -1245,16 +1245,16 @@ button {
 }
 
 .friend-template {
-  background: #f5f5f5;
+  background: #f7f7f7;
   border: 2px solid #111;
   border-radius: 4px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
-  line-height: 1.9;
+  font-size: 0.8rem;
+  line-height: 1.85;
   margin: 14px 0 0;
   white-space: pre-wrap;
-  box-shadow: 3px 3px 0 #111;
+  box-shadow: 2px 2px 0 #111;
 }
 
 .friend-notes {
