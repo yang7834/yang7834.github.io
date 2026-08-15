@@ -165,7 +165,9 @@ button {
 }
 
 .nav-label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.9rem;
   line-height: 1;
   color: var(--muted);
@@ -176,6 +178,17 @@ button {
   border: none;
   padding: 0;
   font-family: inherit;
+}
+
+.nav-icon {
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+}
+
+.nav-icon svg {
+  width: 15px;
+  height: 15px;
 }
 
 .nav-dropdown:hover .nav-label,
