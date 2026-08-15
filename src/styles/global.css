@@ -148,6 +148,9 @@ button {
 }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.9rem;
   line-height: 1;
   color: var(--muted);
