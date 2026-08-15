@@ -1567,7 +1567,6 @@ button {
 }
 
 .post-card:hover {
-  transform: translateY(-3px);
   box-shadow: 6px 6px 0 #111;
   background: #111;
 }
@@ -1643,6 +1642,27 @@ button {
 .side-card:nth-child(3) { animation-delay: 0.24s; }
 .side-card:nth-child(4) { animation-delay: 0.32s; }
 .side-card:nth-child(5) { animation-delay: 0.4s; }
+
+/* 标题逐字弹跳 */
+.bounce-char {
+  display: inline-block;
+  animation: char-bounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes char-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.4);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(4px) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
 /* 导航 hover 下划线 */
 .site-nav a,
