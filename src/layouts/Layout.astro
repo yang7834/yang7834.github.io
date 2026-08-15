@@ -95,6 +95,7 @@ const searchIndex = posts.map((p) => ({
     <ClientRouter />
   </head>
   <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
     <div class="bg-layer" style={`background-image: url('${site.background}')`}></div>
     <canvas id="trailCanvas" class="trail-canvas" transition:persist></canvas>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -146,6 +147,10 @@ const searchIndex = posts.map((p) => ({
       <span class="footer-stat">本月 <b id="statMonth">-</b></span>
       <span class="footer-stat">总访问 <b id="statTotal">-</b></span>
     </footer>
+
+    <button class="back-to-top" id="backToTop" type="button" aria-label="回到顶部">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
 
     <audio id="musicAudio" src={site.music.audio} preload="metadata" transition:persist></audio>
 
@@ -241,6 +246,49 @@ const searchIndex = posts.map((p) => ({
         }
         requestAnimationFrame(drawTrail);
       }
+
+      // 滚动进度条 + 回到顶部按钮
+      const scrollProgress = document.getElementById('scrollProgress');
+      const backToTop = document.getElementById('backToTop');
+
+      function updateScroll() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollProgress) {
+          const p = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+          scrollProgress.style.width = p + '%';
+        }
+        if (backToTop) {
+          if (scrollTop > 400) {
+            backToTop.classList.add('show');
+          } else {
+            backToTop.classList.remove('show');
+          }
+        }
+      }
+      window.addEventListener('scroll', updateScroll);
+      updateScroll();
+
+      if (backToTop) {
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // 爆炸入场（给卡片设置随机散落方向）
+      function initExplode() {
+        document.querySelectorAll('.post-card, .side-card').forEach((el) => {
+          if (el.dataset.explode) return;
+          el.dataset.explode = '1';
+          const angle = Math.random() * Math.PI * 2;
+          const dist = Math.random() * 130 + 70;
+          el.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+          el.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+          el.style.setProperty('--rot', `${Math.random() * 70 - 35}deg`);
+        });
+      }
+      document.addEventListener('astro:page-load', initExplode);
+      initExplode();
 
       // 下拉菜单：点击切换，点击外部关闭
       function initNavDropdown() {
