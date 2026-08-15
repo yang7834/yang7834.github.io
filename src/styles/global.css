@@ -1083,6 +1083,15 @@ button {
   font-size: 1.9rem;
   font-weight: 900;
   margin: 0 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page h1 svg {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
 }
 
 .page p {
