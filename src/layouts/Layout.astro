@@ -95,7 +95,8 @@ const searchIndex = posts.map((p) => ({
     <ClientRouter />
   </head>
   <body>
-    <div class="bg-layer" style={`background-image: url('${site.background}')`}></div>
+    <div class="bg-layer"></div>
+    <canvas id="bgCanvas" class="bg-canvas"></canvas>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
     <header class="site-header">
       <a class="site-title" href="/">{SITE_TITLE}</a>
@@ -149,6 +150,61 @@ const searchIndex = posts.map((p) => ({
     <audio id="musicAudio" src={site.music.audio} preload="metadata" transition:persist></audio>
 
     <script define:vars={{ searchIndex }}>
+      // 动态粒子背景（黑白星光）
+      const bgCanvas = document.getElementById('bgCanvas');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (bgCanvas && !prefersReduced) {
+        const ctx = bgCanvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+          bgCanvas.width = window.innerWidth;
+          bgCanvas.height = window.innerHeight;
+        }
+
+        function initParticles() {
+          const count = Math.min(80, Math.floor(window.innerWidth / 18));
+          particles = [];
+          for (let i = 0; i < count; i++) {
+            particles.push({
+              x: Math.random() * bgCanvas.width,
+              y: Math.random() * bgCanvas.height,
+              r: Math.random() * 2 + 0.6,
+              vy: Math.random() * 0.3 + 0.08,
+              vx: Math.random() * 0.2 - 0.1,
+              o: Math.random() * 0.35 + 0.08,
+            });
+          }
+        }
+
+        resizeCanvas();
+        initParticles();
+        window.addEventListener('resize', () => {
+          resizeCanvas();
+          initParticles();
+        });
+
+        function drawParticles() {
+          ctx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+          particles.forEach((p) => {
+            p.y += p.vy;
+            p.x += p.vx;
+            if (p.y > bgCanvas.height + 5) {
+              p.y = -5;
+              p.x = Math.random() * bgCanvas.width;
+            }
+            if (p.x < -5) p.x = bgCanvas.width + 5;
+            if (p.x > bgCanvas.width + 5) p.x = -5;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0, 0, 0, ${p.o})`;
+            ctx.fill();
+          });
+          requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+      }
+
       // 下拉菜单：点击切换，点击外部关闭
       function initNavDropdown() {
         document.querySelectorAll('.nav-dropdown').forEach((dd) => {
