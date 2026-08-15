@@ -46,17 +46,19 @@ const links = await getCollection('links');
           </li>
           <li>
             <span class="step-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-            <span>在本站留言区按以下模板留言</span>
+            <div class="step-content">
+              <span>在本站留言区按以下模板留言</span>
+              <pre class="friend-template">站点名称：你的博客名
+站点链接：https://你的博客地址
+头像链接：https://你的头像图片地址
+站点描述：一句话介绍你的博客</pre>
+            </div>
           </li>
           <li>
             <span class="step-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
             <span>等待审核，通过后即可上墙</span>
           </li>
         </ol>
-        <pre class="friend-template">站点名称：你的博客名
-站点链接：https://你的博客地址
-头像链接：https://你的头像图片地址
-站点描述：一句话介绍你的博客</pre>
       </div>
       <div class="friend-apply-col">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>我的站点</h3>
