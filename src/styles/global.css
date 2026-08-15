@@ -53,6 +53,16 @@ a {
   color: #fff;
 }
 
+:focus-visible {
+  outline: 2px solid var(--line-strong);
+  outline-offset: 2px;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
 /* ---------- 背景层 ---------- */
 
 .bg-layer {
@@ -140,12 +150,17 @@ a {
   font-size: 0.9rem;
   line-height: 1;
   color: var(--muted);
-  cursor: default;
+  cursor: pointer;
   transition: color 0.15s ease;
   user-select: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
 }
 
-.nav-dropdown:hover .nav-label {
+.nav-dropdown:hover .nav-label,
+.nav-dropdown:focus-within .nav-label {
   color: var(--fg);
 }
 
@@ -168,7 +183,8 @@ a {
   z-index: 100;
 }
 
-.nav-dropdown:hover .dropdown-menu {
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(4px);
@@ -1266,4 +1282,16 @@ a {
 
 .post-card:hover .post-card-cover img {
   transform: scale(1.06);
+}
+
+/* 尊重减少动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

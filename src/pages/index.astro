@@ -77,7 +77,7 @@ const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
                 {
                   post.data.cover && (
                     <div class="post-card-cover">
-                      <img src={post.data.cover} alt={post.data.title} loading="lazy" />
+                      <img src={post.data.cover} alt={post.data.title} loading="lazy" width="120" height="120" />
                     </div>
                   )
                 }

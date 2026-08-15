@@ -78,8 +78,11 @@ const searchIndex = posts.map((p) => ({
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ececec" />
     <title>{pageTitle}</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://giscus.app" />
+    <link rel="preconnect" href="https://eohtftdqtxbkryaktqrt.supabase.co" />
     {description && <meta name="description" content={description} />}
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
@@ -93,7 +96,7 @@ const searchIndex = posts.map((p) => ({
           navItems.map((item) =>
             item.children ? (
               <div class="nav-dropdown">
-                <span class="nav-label">{item.label}</span>
+                <button class="nav-label" type="button">{item.label}</button>
                 <div class="dropdown-menu">
                   {
                     item.children.map((child) =>
@@ -323,7 +326,7 @@ const searchIndex = posts.map((p) => ({
         if (document.hidden) {
           if (titleTimer) { clearTimeout(titleTimer); titleTimer = null; }
           realTitle = document.title;
-          document.title = '页面已丢失...';
+          document.title = '页面已丢失…';
         } else {
           document.title = '骗你的，欢迎回来';
           if (titleTimer) clearTimeout(titleTimer);
