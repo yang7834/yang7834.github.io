@@ -14,7 +14,7 @@
   "music": {
     "title": "Lemon",
     "artist": "米津玄師",
-    "audio": "/music/lemon.flac",
+    "audio": "/music/lemon.mp3",
     "cover": "/images/lemon-cover.png"
   }
 }
