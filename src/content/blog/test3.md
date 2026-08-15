@@ -6,7 +6,7 @@ date: 2026-08-14 21:47
 sticky: false
 category: 测试
 tags: []
-cover: ''
+cover: /images/v2-dc60ec41d86b0c81703a956889aa89e6_r.jpg
 ---
 
 无
