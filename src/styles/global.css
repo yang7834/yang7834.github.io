@@ -378,15 +378,22 @@ button {
 
 /* ---------- 侧边栏 ---------- */
 
+.home-layout {
+  counter-reset: card;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  counter-reset: card;
 }
 
 .side-card {
   counter-increment: card;
+}
+
+.side-card.profile {
+  counter-increment: none;
 }
 
 .side-card-title::before {
