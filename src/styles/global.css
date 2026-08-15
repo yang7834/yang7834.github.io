@@ -1287,6 +1287,10 @@ button {
   min-width: 0;
 }
 
+.friend-apply-col h3:not(:first-child) {
+  margin-top: 24px;
+}
+
 .page h3 {
   font-size: 1rem;
   font-weight: 700;

@@ -38,18 +38,6 @@ const links = await getCollection('links');
     <h2 class="friend-apply-title">申请友链</h2>
     <div class="friend-apply">
       <div class="friend-apply-col">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>我的站点</h3>
-        <div class="friend-self">
-          <img class="friend-self-avatar" src={site.avatar} alt="头像" width="64" height="64" />
-          <div class="friend-self-info">
-            <span>站点名称：{site.title}</span>
-            <span>站点链接：https://yang7834.github.io</span>
-            <span>头像链接：https://yang7834.github.io{site.avatar}</span>
-            <span>站点描述：{site.subtitle}</span>
-          </div>
-        </div>
-      </div>
-      <div class="friend-apply-col">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>申请流程</h3>
         <ol class="friend-steps">
           <li>
@@ -70,14 +58,25 @@ const links = await getCollection('links');
 头像链接：https://你的头像图片地址
 站点描述：一句话介绍你的博客</pre>
       </div>
+      <div class="friend-apply-col">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>我的站点</h3>
+        <div class="friend-self">
+          <img class="friend-self-avatar" src={site.avatar} alt="头像" width="64" height="64" />
+          <div class="friend-self-info">
+            <span>站点名称：{site.title}</span>
+            <span>站点链接：https://yang7834.github.io</span>
+            <span>头像链接：https://yang7834.github.io{site.avatar}</span>
+            <span>站点描述：{site.subtitle}</span>
+          </div>
+        </div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>注意事项</h3>
+        <ul class="friend-notes">
+          <li>站点需能正常访问，内容健康、无违法信息</li>
+          <li>请先在贵站添加本站友链，再申请</li>
+          <li>头像建议使用方形图片，会显示为圆形</li>
+          <li>审核通过后展示在列表，长期无法访问可能会移除</li>
+        </ul>
+      </div>
     </div>
-
-    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>注意事项</h3>
-    <ul class="friend-notes">
-      <li>站点需能正常访问，内容健康、无违法信息</li>
-      <li>请先在贵站添加本站友链，再申请</li>
-      <li>头像建议使用方形图片，会显示为圆形</li>
-      <li>审核通过后展示在列表，长期无法访问可能会移除</li>
-    </ul>
   </article>
 </Layout>
