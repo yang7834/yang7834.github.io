@@ -195,7 +195,7 @@ button {
 }
 
 .nav-dropdown:hover .nav-label,
-.nav-dropdown:focus-within .nav-label {
+.nav-dropdown.open .nav-label {
   color: var(--fg);
 }
 
@@ -217,7 +217,7 @@ button {
 }
 
 .nav-dropdown:hover .dropdown-menu,
-.nav-dropdown:focus-within .dropdown-menu {
+.nav-dropdown.open .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(4px);

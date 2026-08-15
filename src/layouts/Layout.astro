@@ -149,6 +149,24 @@ const searchIndex = posts.map((p) => ({
     <audio id="musicAudio" src={site.music.audio} preload="metadata" transition:persist></audio>
 
     <script define:vars={{ searchIndex }}>
+      // 下拉菜单：点击切换，点击外部关闭
+      const dropdowns = document.querySelectorAll('.nav-dropdown');
+      dropdowns.forEach((dd) => {
+        const btn = dd.querySelector('.nav-label');
+        if (btn) {
+          btn.addEventListener('click', () => {
+            const wasOpen = dd.classList.contains('open');
+            dropdowns.forEach((d) => d.classList.remove('open'));
+            if (!wasOpen) dd.classList.add('open');
+          });
+        }
+      });
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-dropdown')) {
+          dropdowns.forEach((d) => d.classList.remove('open'));
+        }
+      });
+
       // 搜索
       const input = document.getElementById('searchInput');
       const results = document.getElementById('searchResults');
