@@ -1633,6 +1633,7 @@ button {
 }
 
 .post-card:hover {
+  transform: translateY(-3px);
   box-shadow: 6px 6px 0 #111;
   background: #111;
 }
