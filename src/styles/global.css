@@ -778,6 +778,7 @@ button {
   flex-wrap: wrap;
   gap: 10px;
   padding: 16px 20px;
+  box-shadow: none;
 }
 
 .filter-item {
