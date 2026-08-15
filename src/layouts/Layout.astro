@@ -13,7 +13,7 @@ const { title, description } = Astro.props;
 
 const SITE_TITLE = site.title;
 const SITE_SUBTITLE = site.subtitle;
-const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · ${SITE_SUBTITLE}`;
+const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE}丨${SITE_SUBTITLE}`;
 
 type NavItem = {
   label: string;
@@ -91,7 +91,7 @@ const searchIndex = posts.map((p) => ({
     <div class="bg-layer" style={`background-image: url('${site.background}')`}></div>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
     <header class="site-header">
-      <a class="site-title" href="/">{SITE_TITLE} · {SITE_SUBTITLE}</a>
+      <a class="site-title" href="/">{SITE_TITLE}</a>
       <nav class="site-nav">
         {
           navItems.map((item) =>
