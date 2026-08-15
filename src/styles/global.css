@@ -1609,6 +1609,73 @@ button {
   transform: scale(1.06);
 }
 
+/* 卡片入场动画 */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post-card {
+  animation: card-in 0.45s ease both;
+}
+
+.post-card:nth-child(1) { animation-delay: 0.05s; }
+.post-card:nth-child(2) { animation-delay: 0.12s; }
+.post-card:nth-child(3) { animation-delay: 0.19s; }
+.post-card:nth-child(4) { animation-delay: 0.26s; }
+.post-card:nth-child(5) { animation-delay: 0.33s; }
+.post-card:nth-child(6) { animation-delay: 0.4s; }
+.post-card:nth-child(7) { animation-delay: 0.47s; }
+.post-card:nth-child(8) { animation-delay: 0.54s; }
+
+.side-card {
+  animation: card-in 0.45s ease both;
+}
+
+.side-card:nth-child(1) { animation-delay: 0.08s; }
+.side-card:nth-child(2) { animation-delay: 0.16s; }
+.side-card:nth-child(3) { animation-delay: 0.24s; }
+.side-card:nth-child(4) { animation-delay: 0.32s; }
+.side-card:nth-child(5) { animation-delay: 0.4s; }
+
+/* 导航 hover 下划线 */
+.site-nav a,
+.nav-label {
+  position: relative;
+}
+
+.site-nav a::after,
+.nav-label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: #111;
+  transition: width 0.25s ease;
+}
+
+.site-nav a:hover::after,
+.nav-dropdown:hover .nav-label::after {
+  width: 100%;
+}
+
+/* 侧边栏图标 hover 微动 */
+.side-card-title svg {
+  transition: transform 0.2s ease;
+}
+
+.side-card:hover .side-card-title svg {
+  transform: scale(1.15) rotate(-6deg);
+}
+
 /* 尊重减少动效偏好 */
 @media (prefers-reduced-motion: reduce) {
   *,
