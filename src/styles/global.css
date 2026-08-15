@@ -1658,21 +1658,8 @@ button {
 }
 
 .side-card:hover {
-  animation: side-bounce 0.45s ease;
+  transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-@keyframes side-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px) scale(1.02);
-  }
-  70% {
-    transform: translateY(2px);
-  }
 }
 
 /* 封面悬停缩放 */
