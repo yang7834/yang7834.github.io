@@ -50,6 +50,7 @@ collections:
         file: "src/data/site.json"
         fields:
           - { label: "博客名", name: title, widget: string }
+          - { label: "昵称", name: name, widget: string, required: false, hint: "头像下面显示的名字" }
           - { label: "副标题", name: subtitle, widget: string }
           - { label: "个人简介", name: bio, widget: string }
           - { label: "头像", name: avatar, widget: image }

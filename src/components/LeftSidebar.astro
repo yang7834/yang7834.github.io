@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import site from '../data/site.json';
 import { formatDateTime } from '../lib/format';
 
-const SITE_TITLE = site.title;
+const SITE_NAME = site.name || site.title;
 const SITE_BIO = site.bio;
 
 const posts = await getCollection('blog');
@@ -31,7 +31,7 @@ const moments = (await getCollection('moments')).sort((a, b) => {
         <img class="profile-avatar" src={site.avatar} alt="头像" width="96" height="96" />
       </span>
     </a>
-    <h2 class="profile-name">{SITE_TITLE}</h2>
+    <h2 class="profile-name">{SITE_NAME}</h2>
     <p class="profile-bio">{SITE_BIO}</p>
   </div>
 
