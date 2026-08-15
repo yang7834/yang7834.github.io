@@ -1730,31 +1730,9 @@ button {
   }
 }
 
-/* 导航箭头选中 */
 .site-nav a,
 .nav-label {
   position: relative;
-}
-
-.site-nav a::before,
-.nav-label::before {
-  content: '▶';
-  position: absolute;
-  left: -18px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.55rem;
-  color: #111;
-  opacity: 0;
-  transition: opacity 0.15s ease, left 0.2s ease;
-}
-
-.site-nav a:hover::before,
-.site-nav a[aria-current="page"]::before,
-.nav-dropdown:hover .nav-label::before,
-.nav-dropdown.open .nav-label::before {
-  opacity: 1;
-  left: -13px;
 }
 
 /* 侧边栏图标 hover 微动 */
