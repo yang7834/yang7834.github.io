@@ -150,11 +150,14 @@ const searchIndex = posts.map((p) => ({
     <audio id="musicAudio" src={site.music.audio} preload="metadata" transition:persist></audio>
 
     <script define:vars={{ searchIndex }}>
-      // 动态粒子背景（黑白星光）
+      // 动态粒子背景（飘落圆点 + 闪烁星星 + 流星）
       const bgCanvas = document.getElementById('bgCanvas');
       if (bgCanvas) {
         const ctx = bgCanvas.getContext('2d');
-        let particles = [];
+        let dots = [];
+        let stars = [];
+        let meteors = [];
+        let lastMeteor = 0;
 
         function resizeCanvas() {
           bgCanvas.width = window.innerWidth;
@@ -162,18 +165,52 @@ const searchIndex = posts.map((p) => ({
         }
 
         function initParticles() {
-          const count = Math.min(80, Math.floor(window.innerWidth / 18));
-          particles = [];
-          for (let i = 0; i < count; i++) {
-            particles.push({
+          const dotCount = Math.min(70, Math.floor(window.innerWidth / 20));
+          const starCount = Math.min(28, Math.floor(window.innerWidth / 45));
+          dots = [];
+          for (let i = 0; i < dotCount; i++) {
+            dots.push({
               x: Math.random() * bgCanvas.width,
               y: Math.random() * bgCanvas.height,
-              r: Math.random() * 2.5 + 1.2,
-              vy: Math.random() * 0.35 + 0.1,
-              vx: Math.random() * 0.25 - 0.125,
-              o: Math.random() * 0.4 + 0.25,
+              r: Math.random() * 2 + 0.8,
+              vy: Math.random() * 0.4 + 0.1,
+              vx: Math.random() * 0.3 - 0.15,
+              o: Math.random() * 0.4 + 0.2,
             });
           }
+          stars = [];
+          for (let i = 0; i < starCount; i++) {
+            stars.push({
+              x: Math.random() * bgCanvas.width,
+              y: Math.random() * bgCanvas.height,
+              r: Math.random() * 3 + 1.5,
+              phase: Math.random() * Math.PI * 2,
+              speed: Math.random() * 0.02 + 0.01,
+            });
+          }
+          meteors = [];
+        }
+
+        function drawStar(x, y, r, o) {
+          ctx.beginPath();
+          ctx.moveTo(x, y - r);
+          ctx.quadraticCurveTo(x, y, x + r, y);
+          ctx.quadraticCurveTo(x, y, x, y + r);
+          ctx.quadraticCurveTo(x, y, x - r, y);
+          ctx.quadraticCurveTo(x, y, x, y - r);
+          ctx.fillStyle = `rgba(0, 0, 0, ${o})`;
+          ctx.fill();
+        }
+
+        function spawnMeteor() {
+          meteors.push({
+            x: Math.random() * bgCanvas.width,
+            y: Math.random() * bgCanvas.height * 0.3,
+            len: Math.random() * 80 + 60,
+            speed: Math.random() * 4 + 3,
+            angle: Math.PI / 4,
+            life: 1,
+          });
         }
 
         resizeCanvas();
@@ -183,9 +220,10 @@ const searchIndex = posts.map((p) => ({
           initParticles();
         });
 
-        function drawParticles() {
+        function drawParticles(now) {
           ctx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-          particles.forEach((p) => {
+
+          dots.forEach((p) => {
             p.y += p.vy;
             p.x += p.vx;
             if (p.y > bgCanvas.height + 5) {
@@ -199,9 +237,40 @@ const searchIndex = posts.map((p) => ({
             ctx.fillStyle = `rgba(0, 0, 0, ${p.o})`;
             ctx.fill();
           });
+
+          stars.forEach((s) => {
+            const tw = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(now * s.speed + s.phase));
+            drawStar(s.x, s.y, s.r, tw * 0.55);
+          });
+
+          if (now - lastMeteor > 2200 && meteors.length < 2) {
+            spawnMeteor();
+            lastMeteor = now;
+          }
+          meteors.forEach((m, i) => {
+            m.x += Math.cos(m.angle) * m.speed;
+            m.y += Math.sin(m.angle) * m.speed;
+            m.life -= 0.015;
+            if (m.life <= 0) {
+              meteors.splice(i, 1);
+              return;
+            }
+            const tx = m.x - Math.cos(m.angle) * m.len;
+            const ty = m.y - Math.sin(m.angle) * m.len;
+            const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
+            grad.addColorStop(0, `rgba(0, 0, 0, ${m.life * 0.6})`);
+            grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.beginPath();
+            ctx.moveTo(m.x, m.y);
+            ctx.lineTo(tx, ty);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          });
+
           requestAnimationFrame(drawParticles);
         }
-        drawParticles();
+        requestAnimationFrame(drawParticles);
       }
 
       // 下拉菜单：点击切换，点击外部关闭
