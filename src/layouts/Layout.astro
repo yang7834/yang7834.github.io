@@ -150,22 +150,26 @@ const searchIndex = posts.map((p) => ({
 
     <script define:vars={{ searchIndex }}>
       // 下拉菜单：点击切换，点击外部关闭
-      const dropdowns = document.querySelectorAll('.nav-dropdown');
-      dropdowns.forEach((dd) => {
-        const btn = dd.querySelector('.nav-label');
-        if (btn) {
-          btn.addEventListener('click', () => {
-            const wasOpen = dd.classList.contains('open');
-            dropdowns.forEach((d) => d.classList.remove('open'));
-            if (!wasOpen) dd.classList.add('open');
-          });
-        }
-      });
+      function initNavDropdown() {
+        document.querySelectorAll('.nav-dropdown').forEach((dd) => {
+          const btn = dd.querySelector('.nav-label');
+          if (btn && !btn.dataset.bound) {
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', () => {
+              const wasOpen = dd.classList.contains('open');
+              document.querySelectorAll('.nav-dropdown.open').forEach((d) => d.classList.remove('open'));
+              if (!wasOpen) dd.classList.add('open');
+            });
+          }
+        });
+      }
       document.addEventListener('click', (e) => {
         if (!e.target.closest('.nav-dropdown')) {
-          dropdowns.forEach((d) => d.classList.remove('open'));
+          document.querySelectorAll('.nav-dropdown.open').forEach((d) => d.classList.remove('open'));
         }
       });
+      document.addEventListener('astro:page-load', initNavDropdown);
+      initNavDropdown();
 
       // 搜索
       const input = document.getElementById('searchInput');

@@ -216,7 +216,6 @@ button {
   z-index: 100;
 }
 
-.nav-dropdown:hover .dropdown-menu,
 .nav-dropdown.open .dropdown-menu {
   opacity: 1;
   visibility: visible;
