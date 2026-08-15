@@ -1151,6 +1151,62 @@ button {
 }
 
 /* 友链 */
+.friend-intro {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.page h2 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 28px 0 14px;
+}
+
+.friend-self {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 2px solid #111;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #111;
+  margin-bottom: 8px;
+}
+
+.friend-self-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #111;
+  flex: 0 0 auto;
+}
+
+.friend-self-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  min-width: 0;
+}
+
+.friend-steps,
+.friend-notes {
+  margin: 0;
+  padding-left: 1.4em;
+  color: var(--muted);
+}
+
+.friend-steps li,
+.friend-notes li {
+  margin: 6px 0;
+}
+
+.friend-empty {
+  color: var(--muted);
+}
+
 .friend-list {
   list-style: none;
   margin: 0;
