@@ -1,8 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Placeholder from '../components/Placeholder.astro';
+import { getCollection } from 'astro:content';
+
+const bookmarks = await getCollection('bookmarks');
 ---
 
 <Layout title="书签导航">
-  <Placeholder title="书签导航" description="这里收藏了一些常用网站。" icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' />
+  <article class="page glass">
+    <h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>书签导航</h1>
+    {
+      bookmarks.length > 0 ? (
+        <ul class="friend-list">
+          {
+            bookmarks.map((b) => (
+              <li class="friend-item">
+                <a href={b.data.url} target="_blank" rel="noopener noreferrer">
+                  <div class="friend-info">
+                    <span class="friend-name">{b.data.name}</span>
+                    {b.data.description && <span class="friend-desc">{b.data.description}</span>}
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      ) : (
+        <p class="friend-empty">还没有书签，去后台「书签导航」模块添加吧～</p>
+      )
+    }
+  </article>
 </Layout>

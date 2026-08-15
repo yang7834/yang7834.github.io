@@ -33,4 +33,32 @@ const links = defineCollection({
   }),
 });
 
-export const collections = { blog, moments, links };
+const photos = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/photos' }),
+  schema: z.object({
+    title: z.string(),
+    image: z.string(),
+    description: z.string().optional().default(''),
+    date: z.coerce.date().optional(),
+  }),
+});
+
+const anime = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/anime' }),
+  schema: z.object({
+    title: z.string(),
+    status: z.string().default('想看'),
+    description: z.string().optional().default(''),
+  }),
+});
+
+const bookmarks = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/bookmarks' }),
+  schema: z.object({
+    name: z.string(),
+    url: z.string(),
+    description: z.string().optional().default(''),
+  }),
+});
+
+export const collections = { blog, moments, links, photos, anime, bookmarks };

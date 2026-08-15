@@ -1,8 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Placeholder from '../components/Placeholder.astro';
+import { getCollection } from 'astro:content';
+
+const photos = await getCollection('photos');
 ---
 
 <Layout title="相册">
-  <Placeholder title="相册" description="这里是我的照片墙。" icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' />
+  <article class="page glass">
+    <h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>相册</h1>
+    {
+      photos.length > 0 ? (
+        <div class="photo-grid">
+          {
+            photos.map((p) => (
+              <figure class="photo-item">
+                <img src={p.data.image} alt={p.data.title} loading="lazy" />
+                <figcaption>{p.data.title}</figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      ) : (
+        <p class="friend-empty">还没有照片，去后台「相册」模块添加吧～</p>
+      )
+    }
+  </article>
 </Layout>

@@ -88,6 +88,12 @@ const searchIndex = posts.map((p) => ({
     <meta name="theme-color" content="#ececec" />
     <title>{pageTitle}</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description || site.subtitle} />
+    <meta property="og:image" content={`https://yang7834.github.io${site.avatar}`} />
+    <meta property="og:url" content={Astro.url.href} />
     <link rel="preconnect" href="https://giscus.app" />
     <link rel="preconnect" href="https://eohtftdqtxbkryaktqrt.supabase.co" />
     {description && <meta name="description" content={description} />}

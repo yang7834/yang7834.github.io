@@ -42,6 +42,33 @@ collections:
       - { label: "站点链接", name: url, widget: string }
       - { label: "头像链接", name: avatar, widget: image, required: false }
       - { label: "站点描述", name: description, widget: string, required: false }
+  - name: photos
+    label: "相册"
+    folder: "src/content/photos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: title, widget: string }
+      - { label: "图片", name: image, widget: image }
+      - { label: "描述", name: description, widget: string, required: false }
+  - name: anime
+    label: "追番"
+    folder: "src/content/anime"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "番剧名", name: title, widget: string }
+      - { label: "状态", name: status, widget: select, options: ["想看", "在看", "看完"], default: "想看" }
+      - { label: "简介", name: description, widget: string, required: false }
+  - name: bookmarks
+    label: "书签导航"
+    folder: "src/content/bookmarks"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "名称", name: name, widget: string }
+      - { label: "链接", name: url, widget: string }
+      - { label: "描述", name: description, widget: string, required: false }
   - name: site
     label: "站点设置"
     files:

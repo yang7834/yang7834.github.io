@@ -1,8 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Placeholder from '../components/Placeholder.astro';
+import { getCollection } from 'astro:content';
+
+const anime = await getCollection('anime');
 ---
 
 <Layout title="追番">
-  <Placeholder title="追番" description="这里是我在追的动漫。" icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M17 2l-5 5-5-5"/></svg>' />
+  <article class="page glass">
+    <h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M17 2l-5 5-5-5"/></svg>追番</h1>
+    {
+      anime.length > 0 ? (
+        <ul class="anime-list">
+          {
+            anime.map((a) => (
+              <li class="anime-item">
+                <span class="anime-title">{a.data.title}</span>
+                <span class="anime-status">{a.data.status}</span>
+                {a.data.description && <span class="anime-desc">{a.data.description}</span>}
+              </li>
+            ))
+          }
+        </ul>
+      ) : (
+        <p class="friend-empty">还没有追番记录，去后台「追番」模块添加吧～</p>
+      )
+    }
+  </article>
 </Layout>
