@@ -152,7 +152,13 @@ const searchIndex = posts.map((p) => ({
 
     <script define:vars={{ searchIndex }}>
       // 动态粒子背景（tsparticles 黑白星座）
-      if (window.tsParticles) {
+      function initBackground() {
+        if (!window.tsParticles) return;
+        const bgCanvas = document.getElementById('bgCanvas');
+        if (bgCanvas) {
+          bgCanvas.width = window.innerWidth;
+          bgCanvas.height = window.innerHeight;
+        }
         tsParticles.load('bgCanvas', {
           fullScreen: { enable: false },
           background: { color: 'transparent' },
@@ -186,6 +192,11 @@ const searchIndex = posts.map((p) => ({
           },
           detectRetina: true,
         });
+      }
+      if (document.readyState === 'complete') {
+        initBackground();
+      } else {
+        window.addEventListener('load', initBackground);
       }
 
       // 下拉菜单：点击切换，点击外部关闭
